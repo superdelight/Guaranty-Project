@@ -1,0 +1,977 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NobleDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankName" Type="nvarchar(max)" />
+          <Property Name="BankAcronyms" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StateId" Type="int" />
+        </EntityType>
+        <EntityType Name="Matching">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GHTrackId" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateMatched" Type="datetime" />
+          <Property Name="PHTrackId" Type="int" />
+          <Property Name="DateHelped" Type="datetime" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="UploadedEvidence" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PackageAmount" Type="float" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="TransId" Type="int" />
+          <Property Name="Benefit" Type="float" />
+        </EntityType>
+        <EntityType Name="PackageSplit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageDescription" Type="nvarchar(max)" />
+          <Property Name="PackId" Type="int" />
+          <Property Name="SplitID" Type="int" />
+          <Property Name="IsDone" Type="bit" />
+          <Property Name="DateInitiated" Type="datetime" />
+          <Property Name="DateCompleted" Type="datetime" />
+          <Property Name="Amount" Type="float" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Tenent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Acronyms" Type="nvarchar(max)" />
+          <Property Name="IsForwardFlow" Type="bit" />
+        </EntityType>
+        <EntityType Name="TrackRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="TenId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="SplitId" Type="int" />
+        </EntityType>
+        <EntityType Name="TransactionDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="BenefitPercentage" Type="int" />
+          <Property Name="MaturityTime" Type="int" />
+        </EntityType>
+        <EntityType Name="TransactionSplit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SplitDescription" Type="nvarchar(max)" />
+          <Property Name="SplitPercentage" Type="int" />
+          <Property Name="TransId" Type="int" />
+          <Property Name="IsFirst" Type="bit" />
+          <Property Name="MaturityTime" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Surname" Type="nvarchar(max)" />
+          <Property Name="Othername" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="nvarchar(max)" />
+          <Property Name="PhoneNo" Type="nvarchar(max)" />
+          <Property Name="EmailAddress" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="BankId" Type="int" />
+          <Property Name="AccountNo" Type="nvarchar(max)" />
+          <Property Name="AccountName" Type="nvarchar(max)" />
+          <Property Name="SortCode" Type="nvarchar(max)" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="StatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="UserPackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="PackId" Type="int" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="CompletionDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matching_TrackRecord">
+          <End Role="TrackRecord" Type="Self.TrackRecord" Multiplicity="0..1" />
+          <End Role="Matching" Type="Self.Matching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Matching">
+              <PropertyRef Name="GHTrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matching_TrackRecord1">
+          <End Role="TrackRecord" Type="Self.TrackRecord" Multiplicity="0..1" />
+          <End Role="Matching" Type="Self.Matching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Matching">
+              <PropertyRef Name="PHTrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_TransactionDetails">
+          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="0..1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="TransId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageSplit_TransactionSplit">
+          <End Role="TransactionSplit" Type="Self.TransactionSplit" Multiplicity="0..1" />
+          <End Role="PackageSplit" Type="Self.PackageSplit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionSplit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageSplit">
+              <PropertyRef Name="SplitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageSplit_UserPackage">
+          <End Role="UserPackage" Type="Self.UserPackage" Multiplicity="0..1" />
+          <End Role="PackageSplit" Type="Self.PackageSplit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageSplit">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackRecord_Tenent">
+          <End Role="Tenent" Type="Self.Tenent" Multiplicity="0..1" />
+          <End Role="TrackRecord" Type="Self.TrackRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackRecord">
+              <PropertyRef Name="TenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackRecord_UserPackage">
+          <End Role="UserPackage" Type="Self.UserPackage" Multiplicity="0..1" />
+          <End Role="TrackRecord" Type="Self.TrackRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackRecord">
+              <PropertyRef Name="SplitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionSplit_TransactionDetails">
+          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="0..1" />
+          <End Role="TransactionSplit" Type="Self.TransactionSplit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionSplit">
+              <PropertyRef Name="TransId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Bank">
+          <End Role="Bank" Type="Self.Bank" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserStatu">
+          <End Role="UserStatu" Type="Self.UserStatu" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPackage_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
+          <End Role="UserPackage" Type="Self.UserPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPackage">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPackage_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserPackage" Type="Self.UserPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPackage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NobleDBModelStoreContainer">
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matching" EntityType="Self.Matching" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageSplit" EntityType="Self.PackageSplit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tenent" EntityType="Self.Tenent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackRecord" EntityType="Self.TrackRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionSplit" EntityType="Self.TransactionSplit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPackage" EntityType="Self.UserPackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatu" EntityType="Self.UserStatu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matching_TrackRecord" Association="Self.FK_Matching_TrackRecord">
+            <End Role="TrackRecord" EntitySet="TrackRecord" />
+            <End Role="Matching" EntitySet="Matching" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matching_TrackRecord1" Association="Self.FK_Matching_TrackRecord1">
+            <End Role="TrackRecord" EntitySet="TrackRecord" />
+            <End Role="Matching" EntitySet="Matching" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_TransactionDetails" Association="Self.FK_Package_TransactionDetails">
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageSplit_TransactionSplit" Association="Self.FK_PackageSplit_TransactionSplit">
+            <End Role="TransactionSplit" EntitySet="TransactionSplit" />
+            <End Role="PackageSplit" EntitySet="PackageSplit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageSplit_UserPackage" Association="Self.FK_PackageSplit_UserPackage">
+            <End Role="UserPackage" EntitySet="UserPackage" />
+            <End Role="PackageSplit" EntitySet="PackageSplit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackRecord_Tenent" Association="Self.FK_TrackRecord_Tenent">
+            <End Role="Tenent" EntitySet="Tenent" />
+            <End Role="TrackRecord" EntitySet="TrackRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackRecord_UserPackage" Association="Self.FK_TrackRecord_UserPackage">
+            <End Role="UserPackage" EntitySet="UserPackage" />
+            <End Role="TrackRecord" EntitySet="TrackRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionSplit_TransactionDetails" Association="Self.FK_TransactionSplit_TransactionDetails">
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
+            <End Role="TransactionSplit" EntitySet="TransactionSplit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Bank" Association="Self.FK_User_Bank">
+            <End Role="Bank" EntitySet="Bank" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_City" Association="Self.FK_User_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserStatu" Association="Self.FK_User_UserStatu">
+            <End Role="UserStatu" EntitySet="UserStatu" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPackage_Package" Association="Self.FK_UserPackage_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="UserPackage" EntitySet="UserPackage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPackage_User" Association="Self.FK_UserPackage_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPackage" EntitySet="UserPackage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NobleDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Matching">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GHTrackId" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateMatched" Type="DateTime" Precision="3" />
+          <Property Name="PHTrackId" Type="Int32" />
+          <Property Name="DateHelped" Type="DateTime" Precision="3" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="UploadedEvidence" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="TrackRecord" Relationship="NobleDBModel.FK_Matching_TrackRecord" FromRole="Matching" ToRole="TrackRecord" />
+          <NavigationProperty Name="TrackRecord1" Relationship="NobleDBModel.FK_Matching_TrackRecord1" FromRole="Matching" ToRole="TrackRecord" />
+          </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PackageAmount" Type="Double" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="TransId" Type="Int32" />
+          <Property Name="Benefit" Type="Double" />
+          <NavigationProperty Name="UserPackages" Relationship="Self.FK_UserPackage_Package" FromRole="Package" ToRole="UserPackage" />
+          <NavigationProperty Name="TransactionDetail" Relationship="NobleDBModel.FK_Package_TransactionDetails" FromRole="Package" ToRole="TransactionDetail" />
+        </EntityType>
+        <EntityType Name="Tenent" Abstract="false">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Acronyms" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrackRecords" Relationship="NobleDBModel.FK_TrackRecord_Tenent" FromRole="Tenent" ToRole="TrackRecord" />
+          <Property Name="IsForwardFlow" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Othername" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="BankId" Type="Int32" />
+          <Property Name="AccountNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccountName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SortCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserPackages" Relationship="Self.FK_UserPackage_User" FromRole="User" ToRole="UserPackage" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="Bank" Relationship="NobleDBModel.FK_User_Bank" FromRole="User" ToRole="Bank" />
+          <NavigationProperty Name="City" Relationship="NobleDBModel.FK_User_City" FromRole="User" ToRole="City" />
+          <Property Name="StatusId" Type="Int32" />
+          <NavigationProperty Name="UserStatu" Relationship="NobleDBModel.FK_User_UserStatu" FromRole="User" ToRole="UserStatu" />
+        </EntityType>
+        <EntityType Name="UserPackage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="PackId" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Package" Relationship="Self.FK_UserPackage_Package" FromRole="UserPackage" ToRole="Package" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserPackage_User" FromRole="UserPackage" ToRole="User" />
+          <NavigationProperty Name="PackageSplits" Relationship="NobleDBModel.FK_PackageSplit_UserPackage" FromRole="UserPackage" ToRole="PackageSplit" />
+          <NavigationProperty Name="TrackRecords" Relationship="NobleDBModel.FK_TrackRecord_UserPackage" FromRole="UserPackage" ToRole="TrackRecord" />
+        </EntityType>
+        <Association Name="FK_UserPackage_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="0..1" />
+          <End Role="UserPackage" Type="Self.UserPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPackage">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPackage_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserPackage" Type="Self.UserPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPackage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NobleDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Matchings" EntityType="Self.Matching" />
+          <EntitySet Name="Packages" EntityType="Self.Package" />
+          <EntitySet Name="Tenents" EntityType="Self.Tenent" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserPackages" EntityType="Self.UserPackage" />
+          <AssociationSet Name="FK_UserPackage_Package" Association="Self.FK_UserPackage_Package">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="UserPackage" EntitySet="UserPackages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPackage_User" Association="Self.FK_UserPackage_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPackage" EntitySet="UserPackages" />
+          </AssociationSet>
+          <EntitySet Name="PackageSplits" EntityType="NobleDBModel.PackageSplit" />
+          <EntitySet Name="TransactionDetails" EntityType="NobleDBModel.TransactionDetail" />
+          <EntitySet Name="TransactionSplits" EntityType="NobleDBModel.TransactionSplit" />
+          <AssociationSet Name="FK_Package_TransactionDetails" Association="NobleDBModel.FK_Package_TransactionDetails">
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageSplit_TransactionSplit" Association="NobleDBModel.FK_PackageSplit_TransactionSplit">
+            <End Role="TransactionSplit" EntitySet="TransactionSplits" />
+            <End Role="PackageSplit" EntitySet="PackageSplits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageSplit_UserPackage" Association="NobleDBModel.FK_PackageSplit_UserPackage">
+            <End Role="UserPackage" EntitySet="UserPackages" />
+            <End Role="PackageSplit" EntitySet="PackageSplits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionSplit_TransactionDetails" Association="NobleDBModel.FK_TransactionSplit_TransactionDetails">
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+            <End Role="TransactionSplit" EntitySet="TransactionSplits" />
+          </AssociationSet>
+          <EntitySet Name="TrackRecords" EntityType="NobleDBModel.TrackRecord" />
+          <AssociationSet Name="FK_Matching_TrackRecord" Association="NobleDBModel.FK_Matching_TrackRecord">
+            <End Role="TrackRecord" EntitySet="TrackRecords" />
+            <End Role="Matching" EntitySet="Matchings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Matching_TrackRecord1" Association="NobleDBModel.FK_Matching_TrackRecord1">
+            <End Role="TrackRecord" EntitySet="TrackRecords" />
+            <End Role="Matching" EntitySet="Matchings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackRecord_Tenent" Association="NobleDBModel.FK_TrackRecord_Tenent">
+            <End Role="Tenent" EntitySet="Tenents" />
+            <End Role="TrackRecord" EntitySet="TrackRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackRecord_UserPackage" Association="NobleDBModel.FK_TrackRecord_UserPackage">
+            <End Role="UserPackage" EntitySet="UserPackages" />
+            <End Role="TrackRecord" EntitySet="TrackRecords" />
+          </AssociationSet>
+          <EntitySet Name="Banks" EntityType="NobleDBModel.Bank" />
+          <EntitySet Name="Cities" EntityType="NobleDBModel.City" />
+          <EntitySet Name="States" EntityType="NobleDBModel.State" />
+          <AssociationSet Name="FK_User_Bank" Association="NobleDBModel.FK_User_Bank">
+            <End Role="Bank" EntitySet="Banks" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="NobleDBModel.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_City" Association="NobleDBModel.FK_User_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="UserStatus" EntityType="NobleDBModel.UserStatu" />
+          <AssociationSet Name="FK_User_UserStatu" Association="NobleDBModel.FK_User_UserStatu">
+            <End Role="UserStatu" EntitySet="UserStatus" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="PackageSplit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackageDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PackId" Type="Int32" />
+          <Property Name="SplitID" Type="Int32" />
+          <Property Name="IsDone" Type="Boolean" />
+          <Property Name="DateInitiated" Type="DateTime" Precision="3" />
+          <Property Name="DateCompleted" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Double" />
+          <NavigationProperty Name="TransactionSplit" Relationship="NobleDBModel.FK_PackageSplit_TransactionSplit" FromRole="PackageSplit" ToRole="TransactionSplit" />
+          <NavigationProperty Name="UserPackage" Relationship="NobleDBModel.FK_PackageSplit_UserPackage" FromRole="PackageSplit" ToRole="UserPackage" />
+        </EntityType>
+        <EntityType Name="TransactionDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="BenefitPercentage" Type="Int32" />
+          <Property Name="MaturityTime" Type="Int32" />
+          <NavigationProperty Name="Packages" Relationship="NobleDBModel.FK_Package_TransactionDetails" FromRole="TransactionDetail" ToRole="Package" />
+          <NavigationProperty Name="TransactionSplits" Relationship="NobleDBModel.FK_TransactionSplit_TransactionDetails" FromRole="TransactionDetail" ToRole="TransactionSplit" />
+        </EntityType>
+        <EntityType Name="TransactionSplit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SplitDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SplitPercentage" Type="Int32" />
+          <Property Name="TransId" Type="Int32" />
+          <Property Name="IsFirst" Type="Boolean" />
+          <Property Name="MaturityTime" Type="Int32" />
+          <NavigationProperty Name="PackageSplits" Relationship="NobleDBModel.FK_PackageSplit_TransactionSplit" FromRole="TransactionSplit" ToRole="PackageSplit" />
+          <NavigationProperty Name="TransactionDetail" Relationship="NobleDBModel.FK_TransactionSplit_TransactionDetails" FromRole="TransactionSplit" ToRole="TransactionDetail" />
+        </EntityType>
+        <Association Name="FK_Package_TransactionDetails">
+          <End Type="NobleDBModel.TransactionDetail" Role="TransactionDetail" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Package" Role="Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="TransId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageSplit_TransactionSplit">
+          <End Type="NobleDBModel.TransactionSplit" Role="TransactionSplit" Multiplicity="0..1" />
+          <End Type="NobleDBModel.PackageSplit" Role="PackageSplit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionSplit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageSplit">
+              <PropertyRef Name="SplitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageSplit_UserPackage">
+          <End Type="NobleDBModel.UserPackage" Role="UserPackage" Multiplicity="0..1" />
+          <End Type="NobleDBModel.PackageSplit" Role="PackageSplit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageSplit">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionSplit_TransactionDetails">
+          <End Type="NobleDBModel.TransactionDetail" Role="TransactionDetail" Multiplicity="0..1" />
+          <End Type="NobleDBModel.TransactionSplit" Role="TransactionSplit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionSplit">
+              <PropertyRef Name="TransId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TrackRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TenId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="SplitId" Type="Int32" />
+          <NavigationProperty Name="Matchings" Relationship="NobleDBModel.FK_Matching_TrackRecord" FromRole="TrackRecord" ToRole="Matching" />
+          <NavigationProperty Name="Matchings1" Relationship="NobleDBModel.FK_Matching_TrackRecord1" FromRole="TrackRecord" ToRole="Matching" />
+          <NavigationProperty Name="Tenent" Relationship="NobleDBModel.FK_TrackRecord_Tenent" FromRole="TrackRecord" ToRole="Tenent" />
+          <NavigationProperty Name="UserPackage" Relationship="NobleDBModel.FK_TrackRecord_UserPackage" FromRole="TrackRecord" ToRole="UserPackage" />
+        </EntityType>
+        <Association Name="FK_Matching_TrackRecord">
+          <End Type="NobleDBModel.TrackRecord" Role="TrackRecord" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Matching" Role="Matching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Matching">
+              <PropertyRef Name="GHTrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Matching_TrackRecord1">
+          <End Type="NobleDBModel.TrackRecord" Role="TrackRecord" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Matching" Role="Matching" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrackRecord">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Matching">
+              <PropertyRef Name="PHTrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackRecord_Tenent">
+          <End Type="NobleDBModel.Tenent" Role="Tenent" Multiplicity="0..1" />
+          <End Type="NobleDBModel.TrackRecord" Role="TrackRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tenent">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackRecord">
+              <PropertyRef Name="TenId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackRecord_UserPackage">
+          <End Type="NobleDBModel.UserPackage" Role="UserPackage" Multiplicity="0..1" />
+          <End Type="NobleDBModel.TrackRecord" Role="TrackRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPackage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrackRecord">
+              <PropertyRef Name="SplitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankAcronyms" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="NobleDBModel.FK_User_Bank" FromRole="Bank" ToRole="User" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" />
+          <NavigationProperty Name="State" Relationship="NobleDBModel.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="Users" Relationship="NobleDBModel.FK_User_City" FromRole="City" ToRole="User" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cities" Relationship="NobleDBModel.FK_City_State" FromRole="State" ToRole="City" />
+        </EntityType>
+        <Association Name="FK_User_Bank">
+          <End Type="NobleDBModel.Bank" Role="Bank" Multiplicity="0..1" />
+          <End Type="NobleDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="BankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Type="NobleDBModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="NobleDBModel.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_City">
+          <End Type="NobleDBModel.City" Role="City" Multiplicity="0..1" />
+          <End Type="NobleDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="NobleDBModel.FK_User_UserStatu" FromRole="UserStatu" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_UserStatu">
+          <End Type="NobleDBModel.UserStatu" Role="UserStatu" Multiplicity="0..1" />
+          <End Type="NobleDBModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NobleDBModelStoreContainer" CdmEntityContainer="NobleDBEntities">
+          <EntitySetMapping Name="Matchings">
+            <EntityTypeMapping TypeName="NobleDBModel.Matching">
+              <MappingFragment StoreEntitySet="Matching">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GHTrackId" ColumnName="GHTrackId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateMatched" ColumnName="DateMatched" />
+                <ScalarProperty Name="PHTrackId" ColumnName="PHTrackId" />
+                <ScalarProperty Name="DateHelped" ColumnName="DateHelped" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="UploadedEvidence" ColumnName="UploadedEvidence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="NobleDBModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PackageAmount" ColumnName="PackageAmount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TransId" ColumnName="TransId" />
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tenents">
+            <EntityTypeMapping TypeName="IsTypeOf(NobleDBModel.Tenent)">
+              <MappingFragment StoreEntitySet="Tenent">
+                <ScalarProperty Name="IsForwardFlow" ColumnName="IsForwardFlow" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Acronyms" ColumnName="Acronyms" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="NobleDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Othername" ColumnName="Othername" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="SortCode" ColumnName="SortCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPackages">
+            <EntityTypeMapping TypeName="NobleDBModel.UserPackage">
+              <MappingFragment StoreEntitySet="UserPackage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PackId" ColumnName="PackId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackageSplits">
+            <EntityTypeMapping TypeName="NobleDBModel.PackageSplit">
+              <MappingFragment StoreEntitySet="PackageSplit">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
+                <ScalarProperty Name="DateInitiated" ColumnName="DateInitiated" />
+                <ScalarProperty Name="IsDone" ColumnName="IsDone" />
+                <ScalarProperty Name="SplitID" ColumnName="SplitID" />
+                <ScalarProperty Name="PackId" ColumnName="PackId" />
+                <ScalarProperty Name="PackageDescription" ColumnName="PackageDescription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDetails">
+            <EntityTypeMapping TypeName="NobleDBModel.TransactionDetail">
+              <MappingFragment StoreEntitySet="TransactionDetails">
+                <ScalarProperty Name="MaturityTime" ColumnName="MaturityTime" />
+                <ScalarProperty Name="BenefitPercentage" ColumnName="BenefitPercentage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionSplits">
+            <EntityTypeMapping TypeName="NobleDBModel.TransactionSplit">
+              <MappingFragment StoreEntitySet="TransactionSplit">
+                <ScalarProperty Name="MaturityTime" ColumnName="MaturityTime" />
+                <ScalarProperty Name="IsFirst" ColumnName="IsFirst" />
+                <ScalarProperty Name="TransId" ColumnName="TransId" />
+                <ScalarProperty Name="SplitPercentage" ColumnName="SplitPercentage" />
+                <ScalarProperty Name="SplitDescription" ColumnName="SplitDescription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackRecords">
+            <EntityTypeMapping TypeName="NobleDBModel.TrackRecord">
+              <MappingFragment StoreEntitySet="TrackRecord">
+                <ScalarProperty Name="SplitId" ColumnName="SplitId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TenId" ColumnName="TenId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="NobleDBModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="BankAcronyms" ColumnName="BankAcronyms" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="NobleDBModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="NobleDBModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserStatus">
+            <EntityTypeMapping TypeName="NobleDBModel.UserStatu">
+              <MappingFragment StoreEntitySet="UserStatu">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

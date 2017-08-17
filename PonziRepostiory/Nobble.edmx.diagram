@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab18f58b5fc5496184cba679fd91165a" Name="Diagram1">
+        <EntityTypeShape EntityType="NobleDBModel.Matching" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NobleDBModel.Package" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NobleDBModel.Tenent" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NobleDBModel.User" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="NobleDBModel.UserPackage" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="NobleDBModel.FK_UserPackage_Package" ManuallyRouted="false" />
+        <AssociationConnector Association="NobleDBModel.FK_UserPackage_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NobleDBModel.PackageSplit" Width="1.5" PointX="5.25" PointY="7.25" />
+        <EntityTypeShape EntityType="NobleDBModel.TransactionDetail" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="NobleDBModel.TransactionSplit" Width="1.5" PointX="3" PointY="4.25" />
+        <AssociationConnector Association="NobleDBModel.FK_Package_TransactionDetails" />
+        <AssociationConnector Association="NobleDBModel.FK_PackageSplit_TransactionSplit" />
+        <AssociationConnector Association="NobleDBModel.FK_PackageSplit_UserPackage" />
+        <AssociationConnector Association="NobleDBModel.FK_TransactionSplit_TransactionDetails" />
+        <EntityTypeShape EntityType="NobleDBModel.TrackRecord" Width="1.5" PointX="5.25" PointY="3.25" />
+        <AssociationConnector Association="NobleDBModel.FK_Matching_TrackRecord" />
+        <AssociationConnector Association="NobleDBModel.FK_Matching_TrackRecord1" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="NobleDBModel.FK_TrackRecord_Tenent" />
+        <AssociationConnector Association="NobleDBModel.FK_TrackRecord_UserPackage" />
+        <EntityTypeShape EntityType="NobleDBModel.Bank" Width="1.5" PointX="0.75" PointY="17.5" />
+        <EntityTypeShape EntityType="NobleDBModel.City" Width="1.5" PointX="0.75" PointY="20" />
+        <EntityTypeShape EntityType="NobleDBModel.State" Width="1.5" PointX="0.75" PointY="23.25" />
+        <AssociationConnector Association="NobleDBModel.FK_User_Bank" />
+        <AssociationConnector Association="NobleDBModel.FK_City_State" />
+        <AssociationConnector Association="NobleDBModel.FK_User_City" />
+        <EntityTypeShape EntityType="NobleDBModel.UserStatu" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="NobleDBModel.FK_User_UserStatu" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

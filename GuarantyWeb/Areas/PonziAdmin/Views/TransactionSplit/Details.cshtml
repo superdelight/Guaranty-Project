@@ -1,0 +1,58 @@
+﻿@model PonziRepostiory.TransactionSplit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TransactionSplit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SplitDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SplitDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SplitPercentage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SplitPercentage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFirst)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFirst)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaturityTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaturityTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

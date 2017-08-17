@@ -1,0 +1,106 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{8CC73F38-C1E9-4B26-99C2-94314D1A72DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataLayer", "DataLayer", "{BC9DA522-229B-4597-BBDB-7E1A11373D10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{FE9BAF08-AB24-4DCA-9713-E85E0D6C9EE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HostImplementaton", "HostImplementaton", "{AB66CC3A-8C52-4954-9F8B-BC9C0E2EF5D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B1A4C6EB-2545-4891-8260-7EBA2B2FF444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonziRepostiory", "PonziRepostiory\PonziRepostiory.csproj", "{BC98426E-C5EC-4FCA-855B-9C543637C5E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{39957266-3B5D-45A4-8167-436C55870272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponzi.Implementation", "Ponzi.Implementation\Ponzi.Implementation.csproj", "{DB79908A-8AA7-4B9D-B259-58EEF6698FA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponzi.DataContract", "Ponzi.DataContract\Ponzi.DataContract.csproj", "{E3565C4B-44DA-434F-8CFF-8112807D16B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonziBussinessLogic", "PonziBussinessLogic\PonziBussinessLogic.csproj", "{53323E2A-9B6E-47EA-A0BE-78EF0D15DB3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Guaranty", "Guaranty", "{B8186272-F766-4DDB-825F-CE33C8C79C05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuarantyWeb", "GuarantyWeb\GuarantyWeb.csproj", "{861697D5-5B68-41B1-825A-FC32C87D3836}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PonziWeb", "PonziWeb\PonziWeb.csproj", "{BB1E30D1-6141-498A-B64E-5BEC52A7F654}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Nobble", "http://localhost/Nobble", "{2B277867-EDAC-4483-9E09-6345710D607A}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "false"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		ProjectReferences = "{53323e2a-9b6e-47ea-a0be-78ef0d15db3e}|PonziBussinessLogic.dll;{BC98426E-C5EC-4FCA-855B-9C543637C5E4}|PonziRepostiory.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/Nobble"
+		Debug.AspNetCompiler.PhysicalPath = "G:\inetpub\wwwroot\Nobble\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Nobble\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Nobble"
+		Release.AspNetCompiler.PhysicalPath = "G:\inetpub\wwwroot\Nobble\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Nobble\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "G:\inetpub\wwwroot\Nobble\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC98426E-C5EC-4FCA-855B-9C543637C5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC98426E-C5EC-4FCA-855B-9C543637C5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC98426E-C5EC-4FCA-855B-9C543637C5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC98426E-C5EC-4FCA-855B-9C543637C5E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39957266-3B5D-45A4-8167-436C55870272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39957266-3B5D-45A4-8167-436C55870272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39957266-3B5D-45A4-8167-436C55870272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39957266-3B5D-45A4-8167-436C55870272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB79908A-8AA7-4B9D-B259-58EEF6698FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB79908A-8AA7-4B9D-B259-58EEF6698FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB79908A-8AA7-4B9D-B259-58EEF6698FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB79908A-8AA7-4B9D-B259-58EEF6698FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3565C4B-44DA-434F-8CFF-8112807D16B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3565C4B-44DA-434F-8CFF-8112807D16B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3565C4B-44DA-434F-8CFF-8112807D16B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3565C4B-44DA-434F-8CFF-8112807D16B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53323E2A-9B6E-47EA-A0BE-78EF0D15DB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53323E2A-9B6E-47EA-A0BE-78EF0D15DB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53323E2A-9B6E-47EA-A0BE-78EF0D15DB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53323E2A-9B6E-47EA-A0BE-78EF0D15DB3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{861697D5-5B68-41B1-825A-FC32C87D3836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{861697D5-5B68-41B1-825A-FC32C87D3836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{861697D5-5B68-41B1-825A-FC32C87D3836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{861697D5-5B68-41B1-825A-FC32C87D3836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB1E30D1-6141-498A-B64E-5BEC52A7F654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB1E30D1-6141-498A-B64E-5BEC52A7F654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB1E30D1-6141-498A-B64E-5BEC52A7F654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB1E30D1-6141-498A-B64E-5BEC52A7F654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B277867-EDAC-4483-9E09-6345710D607A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B277867-EDAC-4483-9E09-6345710D607A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B277867-EDAC-4483-9E09-6345710D607A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B277867-EDAC-4483-9E09-6345710D607A}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC98426E-C5EC-4FCA-855B-9C543637C5E4} = {BC9DA522-229B-4597-BBDB-7E1A11373D10}
+		{39957266-3B5D-45A4-8167-436C55870272} = {8CC73F38-C1E9-4B26-99C2-94314D1A72DB}
+		{DB79908A-8AA7-4B9D-B259-58EEF6698FA4} = {AB66CC3A-8C52-4954-9F8B-BC9C0E2EF5D8}
+		{E3565C4B-44DA-434F-8CFF-8112807D16B4} = {AB66CC3A-8C52-4954-9F8B-BC9C0E2EF5D8}
+		{53323E2A-9B6E-47EA-A0BE-78EF0D15DB3E} = {FE9BAF08-AB24-4DCA-9713-E85E0D6C9EE7}
+		{861697D5-5B68-41B1-825A-FC32C87D3836} = {B8186272-F766-4DDB-825F-CE33C8C79C05}
+		{BB1E30D1-6141-498A-B64E-5BEC52A7F654} = {8CC73F38-C1E9-4B26-99C2-94314D1A72DB}
+		{2B277867-EDAC-4483-9E09-6345710D607A} = {8CC73F38-C1E9-4B26-99C2-94314D1A72DB}
+	EndGlobalSection
+EndGlobal
