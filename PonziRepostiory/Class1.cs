@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PonziRepostiory
 {
-    class Class1
+    class Test
     {
     }
 }
