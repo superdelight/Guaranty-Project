@@ -44,6 +44,8 @@
     <Compile Include="Interface\IPonziAdminLogic.cs" />
     <Compile Include="Implementation\PonziAdminLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utitlity\SMSUtility.cs" />
+    <Compile Include="Utitlity\EmailUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PonziRepostiory\PonziRepostiory.csproj">
