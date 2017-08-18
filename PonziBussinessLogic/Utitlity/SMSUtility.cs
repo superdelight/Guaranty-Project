@@ -24,7 +24,9 @@ namespace PonziBussinessLogic.Utitlity
         {
             try
             {
-                string msg = string.Format("{0}?username={1}&password={2}&sender={3}&recipient={4}&message={5}&", APIAddress, Username, Password, MessageHeader, PhoneNo, Message);
+                http://portal.bulksmsnigeria.net/api/?username=user&password=pass&message=test&sender=welcome&mobiles=2348030000000,2348020000000
+               // string msg = string.Format("{0}?username={1}&password={2}&sender={3}&recipient={4}&message={5}&", APIAddress, Username, Password, MessageHeader, PhoneNo, Message);
+                string msg = string.Format("{0}?username={1}&password={2}&message={3}&sender={4}&recipient={5}&", APIAddress, Username, Password, Message, MessageHeader, PhoneNo);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(msg);
                 request.Timeout = 900000;
                 var response = (HttpWebResponse)request.GetResponse();
