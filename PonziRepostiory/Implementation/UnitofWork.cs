@@ -14,14 +14,13 @@ namespace PonziRepostiory.Implementation
         {
             _Context = new NobleDBEntities();
             // this.Context = Context;
-            TransactionDetail = new TransDetRepository(_Context);
-            TransactionSplitDetail = new TransSplitRepository(_Context);
+         
             PackageDetails = new PackageRepository(_Context);
             BankDetail = new BankRepository(_Context);
             CityDetails = new CityRepository(_Context);
             StateDetails = new StateRepoitory(_Context);
-            UserDetails = new UserRepository(_Context);
-            UserStatusDetail = new UserStatusRepository(_Context);
+       
+         
         }
 
         public IBankRepoitory BankDetail { get; private set; }
@@ -29,11 +28,14 @@ namespace PonziRepostiory.Implementation
         public IPackageRepoitory PackageDetails { get; private set; }
 
         public IStateRepoitory StateDetails { get; private set; }
-        public ITransDetailRepoitory TransactionDetail { get; private set; }
-        public ITransSplitRepoitory TransactionSplitDetail { get; private set; }
-        public IUserRepository UserDetails { get; private set; }
-        public IUserStatusRepoitory UserStatusDetail { get; private set; }
 
+        public IUserRepository UserDetails
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public void Dispose()
         {

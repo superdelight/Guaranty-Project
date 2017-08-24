@@ -15,6 +15,7 @@ namespace PonziRepostiory.Implementation
         {
             this.Context = Context;
         }
+      
         public bool AccountIsActive(string emailAddress)
         {
             return Context.Users.Any(c => c.SortCode.ToLower() == "confirmed");
@@ -34,7 +35,7 @@ namespace PonziRepostiory.Implementation
 
         public IEnumerable<User> GetAllUsers(int statusId)
         {
-            return Context.Users.Where(c => c.StatusId == statusId).ToList();
+            return Context.Users.Where(c => c.NobleStatus == statusId).ToList();
         }
 
         public User GetUserByAccountNo(string accNo)
@@ -44,6 +45,11 @@ namespace PonziRepostiory.Implementation
         public User GetUserByEmail(string emailAddress)
         {
             return Context.Users.Single(c => c.EmailAddress == emailAddress);
+        }
+
+        public bool IsRole(string emailAddress, int Status)
+        {
+            throw new NotImplementedException();
         }
     }
 }

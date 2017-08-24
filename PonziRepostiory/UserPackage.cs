@@ -17,21 +17,21 @@ namespace PonziRepostiory
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserPackage()
         {
-            this.PackageSplits = new HashSet<PackageSplit>();
-            this.TrackRecords = new HashSet<TrackRecord>();
+            this.TransactionDets = new HashSet<TransactionDet>();
         }
     
         public int Id { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<int> PackId { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
+        public Nullable<System.DateTime> DateStarted { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
+        public Nullable<int> PackStatus { get; set; }
+        public Nullable<double> Amount { get; set; }
     
         public virtual Package Package { get; set; }
+        public virtual PackageStatus PackageStatu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionDet> TransactionDets { get; set; }
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PackageSplit> PackageSplits { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackRecord> TrackRecords { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace PonziRepostiory.Interface
         User GetUserByEmail(string emailAddress);
         User GetUserByAccountNo(string accNo);
         IEnumerable<User> GetAllUsers(int statusId);
+        bool IsRole(string emailAddress, int Status);
     }
 }

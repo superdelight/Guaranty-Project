@@ -12,18 +12,18 @@ namespace PonziRepostiory
     using System;
     using System.Collections.Generic;
     
-    public partial class PackageSplit
+    public partial class PackageStatus
     {
-        public int Id { get; set; }
-        public string PackageDescription { get; set; }
-        public Nullable<int> PackId { get; set; }
-        public Nullable<int> SplitID { get; set; }
-        public Nullable<bool> IsDone { get; set; }
-        public Nullable<System.DateTime> DateInitiated { get; set; }
-        public Nullable<System.DateTime> DateCompleted { get; set; }
-        public Nullable<double> Amount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PackageStatus()
+        {
+            this.UserPackages = new HashSet<UserPackage>();
+        }
     
-        public virtual TransactionSplit TransactionSplit { get; set; }
-        public virtual UserPackage UserPackage { get; set; }
+        public int Id { get; set; }
+        public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPackage> UserPackages { get; set; }
     }
 }

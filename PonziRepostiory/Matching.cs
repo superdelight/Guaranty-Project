@@ -15,15 +15,19 @@ namespace PonziRepostiory
     public partial class Matching
     {
         public int Id { get; set; }
-        public Nullable<int> GHTrackId { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateMatched { get; set; }
-        public Nullable<int> PHTrackId { get; set; }
-        public Nullable<System.DateTime> DateHelped { get; set; }
+        public Nullable<int> TransactionId { get; set; }
+        public Nullable<System.DateTime> CompletionDate { get; set; }
         public Nullable<bool> IsConfirmed { get; set; }
-        public byte[] UploadedEvidence { get; set; }
+        public string UploadedEvidence { get; set; }
+        public Nullable<System.DateTime> DateConfirmed { get; set; }
+        public Nullable<int> MatchingStatus { get; set; }
+        public Nullable<int> ConfirmationStatus { get; set; }
+        public Nullable<double> Amount { get; set; }
     
-        public virtual TrackRecord TrackRecord { get; set; }
-        public virtual TrackRecord TrackRecord1 { get; set; }
+        public virtual ConfirmationStatus ConfirmationStatu { get; set; }
+        public virtual MatchingStatus MatchingStatu { get; set; }
+        public virtual TransactionDet TransactionDet { get; set; }
     }
 }

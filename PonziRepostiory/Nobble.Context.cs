@@ -25,18 +25,18 @@ namespace PonziRepostiory
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Matching> Matchings { get; set; }
-        public virtual DbSet<Package> Packages { get; set; }
-        public virtual DbSet<Tenent> Tenents { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserPackage> UserPackages { get; set; }
-        public virtual DbSet<PackageSplit> PackageSplits { get; set; }
-        public virtual DbSet<TransactionDetail> TransactionDetails { get; set; }
-        public virtual DbSet<TransactionSplit> TransactionSplits { get; set; }
-        public virtual DbSet<TrackRecord> TrackRecords { get; set; }
         public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<ConfirmationStatus> ConfirmationStatus1 { get; set; }
+        public virtual DbSet<Matching> Matchings { get; set; }
+        public virtual DbSet<MatchingStatus> MatchingStatus1 { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<PackageStatus> PackageStatus1 { get; set; }
+        public virtual DbSet<RoleStatus> RoleStatus1 { get; set; }
         public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<UserStatu> UserStatus { get; set; }
+        public virtual DbSet<TransactionDet> TransactionDets { get; set; }
+        public virtual DbSet<TransactionStatus> TransactionStatus1 { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserPackage> UserPackages { get; set; }
     }
 }

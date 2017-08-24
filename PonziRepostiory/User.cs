@@ -17,6 +17,7 @@ namespace PonziRepostiory
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.User1 = new HashSet<User>();
             this.UserPackages = new HashSet<UserPackage>();
         }
     
@@ -34,12 +35,18 @@ namespace PonziRepostiory
         public string AccountName { get; set; }
         public string SortCode { get; set; }
         public Nullable<int> CityId { get; set; }
-        public Nullable<int> StatusId { get; set; }
+        public Nullable<int> NobleStatus { get; set; }
+        public Nullable<System.DateTime> LastLoginDate { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> ReferralId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserPackage> UserPackages { get; set; }
         public virtual Bank Bank { get; set; }
         public virtual City City { get; set; }
-        public virtual UserStatu UserStatu { get; set; }
+        public virtual RoleStatus RoleStatu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User1 { get; set; }
+        public virtual User User2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPackage> UserPackages { get; set; }
     }
 }

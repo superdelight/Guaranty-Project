@@ -22,13 +22,13 @@ namespace PonziRepostiory
     
         public int Id { get; set; }
         public string Description { get; set; }
-        public Nullable<double> PackageAmount { get; set; }
+        public Nullable<double> MinimumAmout { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<int> TransId { get; set; }
-        public Nullable<double> Benefit { get; set; }
+        public Nullable<double> PercentageIncrease { get; set; }
+        public Nullable<double> MaximumAmount { get; set; }
+        public Nullable<int> MaturityDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPackage> UserPackages { get; set; }
-        public virtual TransactionDetail TransactionDetail { get; set; }
     }
 }

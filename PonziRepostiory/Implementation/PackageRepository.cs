@@ -18,7 +18,13 @@ namespace PonziRepostiory.Implementation
 
         public IEnumerable<Package> GetAllPackages(int transId)
         {
-            return (from c in Context.Packages where c.TransId == transId select c).ToList();
+            throw new NotImplementedException();
         }
+
+        //public IEnumerable<Package> GetAllPackages(int transId)
+        //{
+        //   
+        //    return (from c in Context.Packages where c.TransId == transId select c).ToList();
+        //}
     }
 }

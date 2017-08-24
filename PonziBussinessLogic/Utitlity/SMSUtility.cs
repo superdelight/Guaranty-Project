@@ -24,9 +24,11 @@ namespace PonziBussinessLogic.Utitlity
         {
             try
             {
-                http://portal.bulksmsnigeria.net/api/?username=user&password=pass&message=test&sender=welcome&mobiles=2348030000000,2348020000000
-               // string msg = string.Format("{0}?username={1}&password={2}&sender={3}&recipient={4}&message={5}&", APIAddress, Username, Password, MessageHeader, PhoneNo, Message);
-                string msg = string.Format("{0}?username={1}&password={2}&message={3}&sender={4}&recipient={5}&", APIAddress, Username, Password, Message, MessageHeader, PhoneNo);
+                // http://portal.bulksmsnigeria.net/api/?username=user&password=pass&message=test&sender=welcome&mobiles=2348030000000,2348020000000
+                //  http://portal.bulksmsnigeria.net/api/?username=user&password=pass&message=391000&sender=2348030000000&mobiles=2348020000000&type=call
+                //http://portal.bulksmsnigeria.net/api/?username=motionline16@gmail.com&password=noblecommunity&message=How&sender=2348030000000&mobiles=2348060168634&type=call
+               // string msg = string.Format("{0}?username={1}&password={2}&message={3}&sender={4}&mobiles={5}&type=call", APIAddress, Username, Password, Message, MessageHeader, PhoneNo);
+                string msg = string.Format("{0}?username={1}&password={2}&message={3}&sender={4}&mobiles={5}", APIAddress, Username, Password, Message, MessageHeader, PhoneNo);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(msg);
                 request.Timeout = 900000;
                 var response = (HttpWebResponse)request.GetResponse();

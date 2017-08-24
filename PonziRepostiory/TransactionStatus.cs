@@ -12,24 +12,18 @@ namespace PonziRepostiory
     using System;
     using System.Collections.Generic;
     
-    public partial class TransactionDetail
+    public partial class TransactionStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TransactionDetail()
+        public TransactionStatus()
         {
-            this.Packages = new HashSet<Package>();
-            this.TransactionSplits = new HashSet<TransactionSplit>();
+            this.TransactionDets = new HashSet<TransactionDet>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<int> BenefitPercentage { get; set; }
-        public Nullable<int> MaturityTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Package> Packages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionSplit> TransactionSplits { get; set; }
+        public virtual ICollection<TransactionDet> TransactionDets { get; set; }
     }
 }

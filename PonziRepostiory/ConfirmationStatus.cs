@@ -12,20 +12,18 @@ namespace PonziRepostiory
     using System;
     using System.Collections.Generic;
     
-    public partial class Tenent
+    public partial class ConfirmationStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tenent()
+        public ConfirmationStatus()
         {
-            this.TrackRecords = new HashSet<TrackRecord>();
+            this.Matchings = new HashSet<Matching>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
-        public string Acronyms { get; set; }
-        public Nullable<bool> IsForwardFlow { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TrackRecord> TrackRecords { get; set; }
+        public virtual ICollection<Matching> Matchings { get; set; }
     }
 }

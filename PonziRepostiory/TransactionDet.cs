@@ -12,28 +12,26 @@ namespace PonziRepostiory
     using System;
     using System.Collections.Generic;
     
-    public partial class TrackRecord
+    public partial class TransactionDet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TrackRecord()
+        public TransactionDet()
         {
             this.Matchings = new HashSet<Matching>();
-            this.Matchings1 = new HashSet<Matching>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
-        public Nullable<int> TenId { get; set; }
-        public Nullable<int> UserId { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> DateCreated { get; set; }
-        public Nullable<int> SplitId { get; set; }
+        public Nullable<int> AmountIncrease { get; set; }
+        public Nullable<int> MaturityTime { get; set; }
+        public Nullable<int> TransactStatus { get; set; }
+        public Nullable<int> TransactionAmount { get; set; }
+        public Nullable<int> UserPackId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matching> Matchings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Matching> Matchings1 { get; set; }
-        public virtual Tenent Tenent { get; set; }
+        public virtual TransactionStatus TransactionStatu { get; set; }
         public virtual UserPackage UserPackage { get; set; }
     }
 }
