@@ -33,20 +33,20 @@ namespace PonziBussinessLogic.Utitlity
                     mailMessage.Body = EmailBody;
                     mailMessage.IsBodyHtml = IsHTMLBody;
                     mailMessage.To.Add(new MailAddress(RecepientEmail));
+                    mailMessage.BodyEncoding = System.Text.Encoding.GetEncoding("utf-8");
+                    mailMessage.HeadersEncoding = System.Text.Encoding.GetEncoding("utf-8");
 
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = HostAddress;
-                    //smtp.EnableSsl = true;
+                    smtp.EnableSsl = SSLEnabled;
                     System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
                     NetworkCred.UserName = EmailSource;
-                    NetworkCred.Password = "Tolulope890@";
+                    NetworkCred.Password = Password;
                     smtp.UseDefaultCredentials = true;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = HostPort;
-
-
                     smtp.Send(mailMessage);
-                    smtp.Timeout = 900000000;
+                    smtp.Timeout = 90000000;
                     ok = true;
 
 
@@ -54,7 +54,7 @@ namespace PonziBussinessLogic.Utitlity
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 ok = false;
             }

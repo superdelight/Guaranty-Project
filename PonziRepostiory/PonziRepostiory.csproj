@@ -61,13 +61,40 @@
     <Compile Include="ConfirmationStatus.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConfirmStatusEnum.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmailValidation.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
     <Compile Include="Implementation\CityRepository.cs" />
+    <Compile Include="Implementation\PhoneValidationRepository.cs" />
+    <Compile Include="Implementation\PackageStatusRepository.cs" />
+    <Compile Include="Implementation\SMSAPIRepository.cs" />
+    <Compile Include="Implementation\ProxySettingRepository.cs" />
+    <Compile Include="Implementation\UserPackageRepository.cs" />
+    <Compile Include="Implementation\TransactionStatusRepository.cs" />
+    <Compile Include="Implementation\RoleStatusRepository.cs" />
+    <Compile Include="Implementation\ValidationStatusRepository.cs" />
+    <Compile Include="Implementation\EmailValidationRepository.cs" />
+    <Compile Include="Implementation\ConfirmationStatusRepoitory.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
     <Compile Include="Implementation\StateRepository.cs" />
     <Compile Include="Implementation\Repository.cs" />
     <Compile Include="Implementation\PackageRepository.cs" />
     <Compile Include="Implementation\BankRepository.cs" />
     <Compile Include="Implementation\UnitofWork.cs" />
+    <Compile Include="Interface\ISMSAPIRepository.cs" />
+    <Compile Include="Interface\IProxyRepository.cs" />
+    <Compile Include="Interface\IPhoneValidationRepository.cs" />
+    <Compile Include="Interface\ITransactionStatusRepoitory.cs" />
+    <Compile Include="Interface\IPackageStatusRepoitory.cs" />
+    <Compile Include="Interface\IMatchingStatusRepoitory.cs" />
+    <Compile Include="Interface\IRoleStatusRepoitory.cs" />
+    <Compile Include="Interface\IConfirmationStatusRepository.cs" />
+    <Compile Include="Interface\IUserPackageRepoitory.cs" />
+    <Compile Include="Interface\IEmailValidationRepository.cs" />
+    <Compile Include="Interface\IValidationStatusRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Interface\ICityRepoitory.cs" />
     <Compile Include="Interface\IStateRepoitory.cs" />
@@ -102,11 +129,28 @@
     <Compile Include="PackageStatus.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
+    <Compile Include="PhoneValidation.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProxySetting.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
     <Compile Include="RoleStatus.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
-    <Compile Include="RoleStatusEnum.cs" />
+    <Compile Include="MatchingStatusEnum.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PackageStatusEnum.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleStatusEnum.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SMSSetting.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
     <Compile Include="State.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
@@ -116,10 +160,22 @@
     <Compile Include="TransactionStatus.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
+    <Compile Include="TransactionStatusEnum.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPackage.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationStatus.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationStatusEnum.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Verification.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
   </ItemGroup>

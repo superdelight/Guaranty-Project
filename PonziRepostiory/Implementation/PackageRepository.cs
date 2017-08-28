@@ -16,15 +16,14 @@ namespace PonziRepostiory.Implementation
 
         }
 
-        public IEnumerable<Package> GetAllPackages(int transId)
+        public bool ConfirmPackage(string packageDescription)
         {
-            throw new NotImplementedException();
+            return Context.Packages.Any(c => c.Description.ToLower() == packageDescription.ToLower());
         }
 
-        //public IEnumerable<Package> GetAllPackages(int transId)
-        //{
-        //   
-        //    return (from c in Context.Packages where c.TransId == transId select c).ToList();
-        //}
+        public Package GetDefaultPackage()
+        {
+            return Context.Packages.FirstOrDefault();
+        }
     }
 }

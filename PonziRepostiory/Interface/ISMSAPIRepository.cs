@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace PonziRepostiory.Interface
 {
     
-    public interface IPackageRepoitory : IRepository<Package>
+    public interface ISMSAPIRepository : IRepository<SMSSetting>
     {
-        bool ConfirmPackage(string packageDescription);
-        Package GetDefaultPackage();
+        bool SendSMS(string destinationPhoneNo, string message, string header);
     }
 }

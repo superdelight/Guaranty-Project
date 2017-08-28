@@ -14,250 +14,6 @@ namespace PonziBussinessLogic.Implementation
     {
         IUnitofWork _unitofWork = new UnitofWork();
 
-        public BusinessMessage<TransactionDetail> GetSingleTransactionDetail(int TransId)
-        {
-            try
-            {
-                var trans = _unitofWork.TransactionDetail.GetSingle(TransId);
-                BusinessMessage<TransactionDetail> msg = new BusinessMessage<TransactionDetail>();
-                msg.ResponseCode = ResponseCode.OK;
-                msg.Result = trans;
-                msg.Message = "Selection done";
-                return msg;
-            }
-            catch (Exception ex)
-            {
-                BusinessMessage<TransactionDetail> msg = new BusinessMessage<TransactionDetail>();
-                msg.Message = ex.Message;
-                msg.ResponseCode = ResponseCode.NotOK;
-                msg.Result = null;
-                return msg;
-            }
-        }
-        public BusinessMessage<bool> EditTransactionDetail(TransactionDetail Trans)
-        {
-            try
-            {
-                _unitofWork.TransactionDetail.Edit(Trans,Trans.Id);
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                    if (_unitofWork.SaveChanges() > 0)
-                    {
-                        msg.Message = string.Format("You have succesfully edited transaction from bucket");
-                        msg.ResponseCode = ResponseCode.OK;
-                        msg.Result = true;
-                    }
-                    else
-                    {
-                        msg.Message = string.Format("Attempt to edit {0} to transaction bucket failed", Trans.Description);
-                        msg.ResponseCode = ResponseCode.NotOK;
-                        msg.Result = false;
-                    }
-                
-           
-                return msg;
-            }
-            catch (Exception ex)
-            {
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                msg.Message = ex.Message;
-                msg.ResponseCode = ResponseCode.NotOK;
-                msg.Result = false;
-                return msg;
-            }
-        }
-        public BusinessMessage<bool> CreateNewTransactionDetail(TransactionDetail Trans)
-        {
-            try
-            {
-             
-                _unitofWork.TransactionDetail.Add(Trans);
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                if (_unitofWork.TransactionDetail.ConfirmTransaction(Trans.Description) == false)
-                {
-                    if (_unitofWork.SaveChanges() > 0)
-                    {
-                        msg.Message = string.Format("You have succesfully added {0} to transaction bucket", Trans.Description);
-                        msg.ResponseCode = ResponseCode.OK;
-                        msg.Result = true;
-                    }
-                    else
-                    {
-                        msg.Message = string.Format("Attempt to add {0} to transaction bucket failed", Trans.Description);
-                        msg.ResponseCode = ResponseCode.NotOK;
-                        msg.Result = false;
-                    }
-                }
-                else
-                {
-                    msg.Message = string.Format("{0} is already existing in transaction bucket", Trans.Description);
-                    msg.ResponseCode = ResponseCode.Null;
-                    msg.Result = false;
-                }
-                return msg;
-            }
-            catch(Exception ex)
-            {
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                msg.Message = ex.Message;
-                msg.ResponseCode = ResponseCode.NotOK;
-                msg.Result = false;
-                return msg;
-            }
-        }
-        public BusinessMessage<List<TransactionDetail>> GetAllTransactions()
-        {
-            try
-            {
-               
-                BusinessMessage<List<TransactionDetail>> msg = new BusinessMessage<List<TransactionDetail>>();
-                var det = _unitofWork.TransactionDetail.GetAll();
-                if (det.Count()>0)
-                {
-                 
-                        msg.Message = string.Format("{0} Selected",det.Count());
-                        msg.ResponseCode = ResponseCode.OK;
-                        msg.Result = det.ToList();
-                   
-                }
-                else
-                {
-                    msg.Message = string.Format("No Transaction was selected");
-                    msg.ResponseCode = ResponseCode.Null;
-                    msg.Result = null;
-                }
-                return msg;
-            }
-            catch (Exception ex)
-            {
-                BusinessMessage<List<TransactionDetail>> msg = new BusinessMessage<List<TransactionDetail>>();
-                msg.Message = ex.Message;
-                msg.ResponseCode = ResponseCode.NotOK;
-                msg.Result = null;
-                return msg;
-            }
-        }
-
-        public BusinessMessage<bool> CreateNewTransactionSplit(TransactionSplit Trans)
-        {
-            try
-            {
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                var oldMaturity = GetTotalSplitMaturityPeriond((int)Trans.TransId);
-                var transactionDetail = GetSingleTransactionDetail((int)Trans.TransId);
-                int predictiveSum = oldMaturity.Result + (int)Trans.MaturityTime;
-                if (predictiveSum < (int)transactionDetail.Result.MaturityTime)
-                {
-                    _unitofWork.TransactionSplitDetail.Add(Trans);
-                    if (_unitofWork.TransactionSplitDetail.ConfirmTransactionSplit(Trans.SplitDescription) == false)
-                    {
-                        if (_unitofWork.SaveChanges() > 0)
-                        {
-                            msg.Message = string.Format("You have succesfully added {0} to Transaction Split Bucket", Trans.SplitDescription);
-                            msg.ResponseCode = ResponseCode.OK;
-                            msg.Result = true;
-                        }
-                        else
-                        {
-                            msg.Message = string.Format("Attempt to add {0} to Transaction Slit Bucket failed", Trans.SplitDescription);
-                            msg.ResponseCode = ResponseCode.NotOK;
-                            msg.Result = false;
-                        }
-                    }
-                    else
-                    {
-                        msg.Message = string.Format("{0} is already existing in Tansaction Bucket", Trans.SplitDescription);
-                        msg.ResponseCode = ResponseCode.Null;
-                        msg.Result = false;
-                    }
-                }
-                else {
-                    msg.Message = string.Format("The total sum of Maturity Period in split cannot be more that the default maturity period set in transaction detail");
-                    msg.ResponseCode = ResponseCode.NotOK;
-                    msg.Result = false;
-                }
-                return msg;
-            }
-            catch (Exception ex)
-            {
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                msg.Message = ex.Message;
-                msg.ResponseCode = ResponseCode.NotOK;
-                msg.Result = false;
-                return msg;
-            }
-        }
-
-        public BusinessMessage<TransactionSplit> GetSingleTransactionSplit(int TransId)
-        {
-            BusinessMessage<TransactionSplit> msg = new BusinessMessage<TransactionSplit>();
-            var trans = _unitofWork.TransactionSplitDetail.GetSingle(TransId);
-            msg.ResponseCode = ResponseCode.OK;
-            msg.Result = trans;
-            msg.Message = string.Format("1 item selected");
-            return msg;
-        }
-
-        public BusinessMessage<List<TransactionSplit>> GetAllTransactionSplit(int transId)
-        {
-            BusinessMessage<List<TransactionSplit>> msg = new BusinessMessage<List<TransactionSplit>>();
-            var trans = _unitofWork.TransactionSplitDetail.GetAllTransactionSplit(transId);
-            msg.ResponseCode = ResponseCode.OK;
-            msg.Result = trans.ToList();
-            msg.Message = string.Format("{0} listed", trans.Count());
-            return msg;
-        }
-
-        public BusinessMessage<List<TransactionSplit>> GetAllTransactionSplit()
-        {
-            BusinessMessage<List<TransactionSplit>> msg = new BusinessMessage<List<TransactionSplit>>();
-            var trans = _unitofWork.TransactionSplitDetail.GetAll();
-            msg.ResponseCode = ResponseCode.OK;
-            msg.Result = trans.ToList();
-            msg.Message = string.Format("{0} listed", trans.Count());
-            return msg;
-        }
-        public BusinessMessage<bool> EditTransactionSplit(TransactionSplit Trans)
-        {
-            try
-            {
-                _unitofWork.TransactionSplitDetail.Edit(Trans, Trans.Id);
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                if (_unitofWork.SaveChanges() > 0)
-                {
-                    msg.Message = string.Format("You have succesfully edited Transaction Split from Bucket");
-                    msg.ResponseCode = ResponseCode.OK;
-                    msg.Result = true;
-                }
-                else
-                {
-                    msg.Message = string.Format("Attempt to edit {0} to Transaction Split Bucket failed", Trans.SplitDescription);
-                    msg.ResponseCode = ResponseCode.NotOK;
-                    msg.Result = false;
-                }
-
-
-                return msg;
-            }
-            catch (Exception ex)
-            {
-                BusinessMessage<bool> msg = new BusinessMessage<bool>();
-                msg.Message = ex.Message;
-                msg.ResponseCode = ResponseCode.NotOK;
-                msg.Result = false;
-                return msg;
-            }
-        }
-
-        public BusinessMessage<int> GetTotalSplitMaturityPeriond(int TransId)
-        {
-            BusinessMessage<int> msg = new BusinessMessage<int>();
-            var total = _unitofWork.TransactionSplitDetail.GetAll()
-                .Where(c => c.TransId == TransId).Select(d => d.MaturityTime).Sum();
-            msg.ResponseCode = ResponseCode.OK;
-            msg.Result = (int)total;
-            msg.Message = "No problems";
-            return msg;
-        }
 
         public BusinessMessage<bool> CreateNewPackage(Package Package)
         {
@@ -300,16 +56,7 @@ namespace PonziBussinessLogic.Implementation
             return msg;
         }
 
-        public BusinessMessage<List<Package>> GetAllPackages(int transId)
-        {
-            BusinessMessage<List<Package>> msg = new BusinessMessage<List<Package>>();
-            var trans = _unitofWork.PackageDetails.GetAllPackages(transId);
-            msg.ResponseCode = ResponseCode.OK;
-            msg.Result = trans.ToList();
-            msg.Message = string.Format("{0} listed", trans.Count());
-            return msg;
-        }
-
+  
         public BusinessMessage<List<Package>> GetAllPackages()
         {
             BusinessMessage<List<Package>> msg = new BusinessMessage<List<Package>>();
@@ -337,16 +84,6 @@ namespace PonziBussinessLogic.Implementation
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = trans.ToList();
             msg.Message = string.Format("{0} listed", trans.Count());
-            return msg;
-        }
-
-        public BusinessMessage<List<UserStatu>> GetAllUserStatus()
-        {
-            BusinessMessage<List<UserStatu>> msg = new BusinessMessage<List<UserStatu>>();
-            var det = _unitofWork.UserStatusDetail.GetAll();
-            msg.ResponseCode = ResponseCode.OK;
-            msg.Result = det.ToList();
-            msg.Message = string.Format("{0} listed", det.Count());
             return msg;
         }
 
@@ -389,9 +126,22 @@ namespace PonziBussinessLogic.Implementation
                 {
                     if (_unitofWork.UserDetails.ConfirmUserByPhoneNumber(User.PhoneNo) == false)
                     {
+                        
                         _unitofWork.UserDetails.Add(User);
                         if (_unitofWork.SaveChanges() > 0)
                         {
+                            var usr = _unitofWork.UserDetails.GetUserByEmail(User.EmailAddress);
+                            EmailValidation emVal = new EmailValidation();
+                            emVal.EmailCode = GetEmailCode().Result;
+                            emVal.GeneratedTime = DateTime.Now;
+                            emVal.IsActive = true;
+                            emVal.UserId = usr.Id;
+                            emVal.Status =Convert.ToInt32(ValidationStatusEnum.Email_Code_Generated);
+
+                            CreateNewEmailVerification(emVal);
+
+
+
                             msg.ResponseCode = ResponseCode.OK;
                             msg.Result = true;
                             msg.Message = string.Format("Hello, {0} {1}<br/> Your Profile has been Successfully Created", User.Surname, User.Othername);
@@ -425,7 +175,6 @@ namespace PonziBussinessLogic.Implementation
             }
             return msg;
         }
-
         public BusinessMessage<bool> EditUser(User User)
         {
             BusinessMessage<bool> msg = new BusinessMessage<bool>();
@@ -483,6 +232,103 @@ namespace PonziBussinessLogic.Implementation
             msg.Result = det.ToList();
             msg.Message = string.Format("{0} listed", det.Count());
             return msg;
+        }
+
+        public BusinessMessage<Package> GetDefaultPackage()
+        {
+            BusinessMessage<Package> msg = new BusinessMessage<Package>();
+            var det = _unitofWork.PackageDetails.GetDefaultPackage();
+            msg.ResponseCode = ResponseCode.OK;
+            msg.Result = det;
+            msg.Message = string.Format("One Item Selected...");
+            return msg;
+        }
+        public BusinessMessage<string> GetEmailCode()
+        {
+            BusinessMessage<string> response = new PonziBussinessLogic.BusinessMessage<string>();
+            try
+            {
+                Random rand = new Random();
+                int newVal = rand.Next(1, 9);
+                int secVal = rand.Next(10, 98);
+                response.Result = string.Format("EM{0:D3}{1}{2:D2}{3:D2}{4:D2}{5}", DateTime.Now.DayOfYear, newVal, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, secVal);
+            }
+            catch
+            {
+                response.ResponseCode = ResponseCode.NotOK;
+                response.Message = "Unable to generate Code";
+            }
+            return response;
+        }
+        public BusinessMessage<string> GetPhoneCode()
+        {
+            BusinessMessage<string> response = new PonziBussinessLogic.BusinessMessage<string>();
+            try
+            {
+                Random rand = new Random();
+                int newVal = rand.Next(1, 9);
+                int secVal = rand.Next(10, 98);
+                response.Result = string.Format("{0:D3}{1}{2:D2}{3:D2}{4:D2}{5}", DateTime.Now.DayOfYear, newVal, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, secVal);
+            }
+            catch
+            {
+                response.ResponseCode = ResponseCode.NotOK;
+                response.Message = "Unable to generate Code";
+            }
+            return response;
+        }
+        public BusinessMessage<bool> CreateNewEmailVerification(EmailValidation emailVerification)
+        {
+            BusinessMessage<bool> response = new PonziBussinessLogic.BusinessMessage<bool>();
+            _unitofWork.EmailValidationContext.Add(emailVerification);
+            if(_unitofWork.SaveChanges()>0)
+            {
+                response.ResponseCode = ResponseCode.OK;
+                response.Message = "You have successfully saved created Email Verification";
+                response.Result = true;
+                _unitofWork.SMSProxySetting.SendSMS(emailVerification.User.PhoneNo, string.Format("Activation Code {0}", GetPhoneCode()), "GTH");
+                _unitofWork.EmailProxyContext.SendEmail(true, "OK", "ACTIVATION CODE", emailVerification.User.EmailAddress);
+                response.ResponseCode = ResponseCode.OK;
+                response.Message = "";
+                response.Result = true;
+                
+            }
+            return response;   
+        }
+
+        public BusinessMessage<EmailValidation> GetUserEmailVerification(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<bool> VerifyEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<PhoneValidation> CreateNewPhoneVerificaton(PhoneValidation phoneValidation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<PhoneValidation> GetUserPhoneVerification(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<bool> VerifyPhone(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<bool> VerifyEmail(string email, string code)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<bool> VerifyPhone(string email, string code)
+        {
+            throw new NotImplementedException();
         }
     }
 }

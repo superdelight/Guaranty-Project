@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace PonziRepostiory.Interface
 {
     
-    public interface IPackageRepoitory : IRepository<Package>
+    public interface ITransactionStatusRepoitory : IRepository<TransactionStatus>
     {
-        bool ConfirmPackage(string packageDescription);
-        Package GetDefaultPackage();
+        IEnumerable<TransactionStatus> GetAllTransactionStatus();
     }
 }

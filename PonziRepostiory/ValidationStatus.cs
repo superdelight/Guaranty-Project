@@ -12,23 +12,18 @@ namespace PonziRepostiory
     using System;
     using System.Collections.Generic;
     
-    public partial class Package
+    public partial class ValidationStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Package()
+        public ValidationStatus()
         {
-            this.UserPackages = new HashSet<UserPackage>();
+            this.Verifications = new HashSet<Verification>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
-        public Nullable<double> MinimumAmount { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<double> PercentageIncrease { get; set; }
-        public Nullable<double> MaximumAmount { get; set; }
-        public Nullable<int> MaturityDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserPackage> UserPackages { get; set; }
+        public virtual ICollection<Verification> Verifications { get; set; }
     }
 }

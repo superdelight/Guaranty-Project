@@ -11,11 +11,16 @@ namespace PonziRepostiory
 {
     using System;
     
-    public enum RoleStatusEnum : int
+    public enum TransactionStatusEnum : int
     {
-        Outbound_User = 1,
-        General_Admin = 2,
-        Super_Admin = 3,
-        Promoted_Privilege = 4
+        PH_Pending = 1,
+        PH_Confirmed = 2,
+        PH_Provisioned = 3,
+        PH_Closed = 4,
+        GH_Process_Begins = 5,
+        GH_Process_Completed = 6,
+        GH_Process_Closed = 7,
+        GH_Floating = 8,
+        Disabled = 9
     }
 }

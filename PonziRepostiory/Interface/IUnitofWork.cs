@@ -14,6 +14,10 @@ namespace PonziRepostiory.Interface
         IStateRepoitory StateDetails { get; }
         IBankRepoitory BankDetail { get; }
         IUserRepository UserDetails { get; }
+        IEmailValidationRepository EmailValidationContext { get;}
+        IPhoneValidationRepository PhoneValidationContext { get; }
+        IProxyRepository EmailProxyContext { get; }
+        ISMSAPIRepository SMSProxySetting { get; }
         int SaveChanges();
         
     }

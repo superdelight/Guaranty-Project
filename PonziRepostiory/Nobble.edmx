@@ -28,6 +28,13 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="EmailValidation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EmailCode" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Matching">
           <Key>
             <PropertyRef Name="Id" />
@@ -57,7 +64,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="MinimumAmout" Type="float" />
+          <Property Name="MinimumAmount" Type="float" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="PercentageIncrease" Type="float" />
           <Property Name="MaximumAmount" Type="float" />
@@ -70,12 +77,41 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="PhoneValidation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneCode" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProxySetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMTPServer" Type="nvarchar(max)" />
+          <Property Name="PortNumber" Type="nvarchar(max)" />
+          <Property Name="EmailSource" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="RoleStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SMSSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMSAPI" Type="nvarchar(max)" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -96,6 +132,8 @@
           <Property Name="TransactStatus" Type="int" />
           <Property Name="TransactionAmount" Type="int" />
           <Property Name="UserPackId" Type="int" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="ActivationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="TransactionStatus">
           <Key>
@@ -139,6 +177,25 @@
           <Property Name="PackStatus" Type="int" />
           <Property Name="Amount" Type="float" />
         </EntityType>
+        <EntityType Name="ValidationStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Verification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GeneratedTime" Type="datetime" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="DateUsed" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
         <Association Name="FK_City_State">
           <End Role="State" Type="Self.State" Multiplicity="0..1" />
           <End Role="City" Type="Self.City" Multiplicity="*" />
@@ -148,6 +205,18 @@
             </Principal>
             <Dependent Role="City">
               <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmailValidation_Verification">
+          <End Role="Verification" Type="Self.Verification" Multiplicity="1" />
+          <End Role="EmailValidation" Type="Self.EmailValidation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Verification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmailValidation">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -184,6 +253,18 @@
             </Principal>
             <Dependent Role="Matching">
               <PropertyRef Name="TransactionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneValidation_Verification">
+          <End Role="Verification" Type="Self.Verification" Multiplicity="1" />
+          <End Role="PhoneValidation" Type="Self.PhoneValidation" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Verification">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PhoneValidation">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -295,23 +376,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Verification_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Verification" Type="Self.Verification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Verification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Verification_ValidationStatus">
+          <End Role="ValidationStatus" Type="Self.ValidationStatus" Multiplicity="0..1" />
+          <End Role="Verification" Type="Self.Verification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Verification">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="NobleDBModelStoreContainer">
           <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConfirmationStatus" EntityType="Self.ConfirmationStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailValidation" EntityType="Self.EmailValidation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matching" EntityType="Self.Matching" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MatchingStatus" EntityType="Self.MatchingStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageStatus" EntityType="Self.PackageStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhoneValidation" EntityType="Self.PhoneValidation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProxySetting" EntityType="Self.ProxySetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleStatus" EntityType="Self.RoleStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SMSSetting" EntityType="Self.SMSSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionDet" EntityType="Self.TransactionDet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionStatus" EntityType="Self.TransactionStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPackage" EntityType="Self.UserPackage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ValidationStatus" EntityType="Self.ValidationStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Verification" EntityType="Self.Verification" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
             <End Role="State" EntitySet="State" />
             <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmailValidation_Verification" Association="Self.FK_EmailValidation_Verification">
+            <End Role="Verification" EntitySet="Verification" />
+            <End Role="EmailValidation" EntitySet="EmailValidation" />
           </AssociationSet>
           <AssociationSet Name="FK_Matching_ConfirmationStatus" Association="Self.FK_Matching_ConfirmationStatus">
             <End Role="ConfirmationStatus" EntitySet="ConfirmationStatus" />
@@ -324,6 +439,10 @@
           <AssociationSet Name="FK_Matching_TransactionDet" Association="Self.FK_Matching_TransactionDet">
             <End Role="TransactionDet" EntitySet="TransactionDet" />
             <End Role="Matching" EntitySet="Matching" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneValidation_Verification" Association="Self.FK_PhoneValidation_Verification">
+            <End Role="Verification" EntitySet="Verification" />
+            <End Role="PhoneValidation" EntitySet="PhoneValidation" />
           </AssociationSet>
           <AssociationSet Name="FK_TransactionDet_TransactionStatus" Association="Self.FK_TransactionDet_TransactionStatus">
             <End Role="TransactionStatus" EntitySet="TransactionStatus" />
@@ -361,6 +480,14 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserPackage" EntitySet="UserPackage" />
           </AssociationSet>
+          <AssociationSet Name="FK_Verification_User" Association="Self.FK_Verification_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Verification" EntitySet="Verification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Verification_ValidationStatus" Association="Self.FK_Verification_ValidationStatus">
+            <End Role="ValidationStatus" EntitySet="ValidationStatus" />
+            <End Role="Verification" EntitySet="Verification" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -372,7 +499,6 @@
           <EntitySet Name="ConfirmationStatus1" EntityType="NobleDBModel.ConfirmationStatus" />
           <EntitySet Name="Matchings" EntityType="NobleDBModel.Matching" />
           <EntitySet Name="MatchingStatus1" EntityType="NobleDBModel.MatchingStatus" />
-          <EntitySet Name="Packages" EntityType="NobleDBModel.Package" />
           <EntitySet Name="PackageStatus1" EntityType="NobleDBModel.PackageStatus" />
           <EntitySet Name="RoleStatus1" EntityType="NobleDBModel.RoleStatus" />
           <EntitySet Name="States" EntityType="NobleDBModel.State" />
@@ -404,10 +530,6 @@
             <End Role="TransactionDet" EntitySet="TransactionDets" />
             <End Role="Matching" EntitySet="Matchings" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserPackage_Package" Association="NobleDBModel.FK_UserPackage_Package">
-            <End Role="Package" EntitySet="Packages" />
-            <End Role="UserPackage" EntitySet="UserPackages" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserPackage_PackageStatus" Association="NobleDBModel.FK_UserPackage_PackageStatus">
             <End Role="PackageStatu" EntitySet="PackageStatus1" />
             <End Role="UserPackage" EntitySet="UserPackages" />
@@ -432,6 +554,23 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserPackage" EntitySet="UserPackages" />
           </AssociationSet>
+          <EntitySet Name="ValidationStatus1" EntityType="NobleDBModel.ValidationStatus" />
+          <EntitySet Name="Verifications" EntityType="NobleDBModel.Verification" />
+          <AssociationSet Name="FK_Verification_ValidationStatus" Association="NobleDBModel.FK_Verification_ValidationStatus">
+            <End Role="ValidationStatu" EntitySet="ValidationStatus1" />
+            <End Role="Verification" EntitySet="Verifications" />
+          </AssociationSet>
+          <EntitySet Name="Packages" EntityType="NobleDBModel.Package" />
+          <AssociationSet Name="FK_UserPackage_Package" Association="NobleDBModel.FK_UserPackage_Package">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="UserPackage" EntitySet="UserPackages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Verification_User" Association="NobleDBModel.FK_Verification_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Verification" EntitySet="Verifications" />
+          </AssociationSet>
+          <EntitySet Name="ProxySettings" EntityType="NobleDBModel.ProxySetting" />
+          <EntitySet Name="SMSSettings" EntityType="NobleDBModel.SMSSetting" />
         </EntityContainer>
         <EntityType Name="Bank">
           <Key>
@@ -487,19 +626,6 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Matchings" Relationship="NobleDBModel.FK_Matching_MatchingStatus" FromRole="MatchingStatu" ToRole="Matching" />
         </EntityType>
-        <EntityType Name="Package">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MinimumAmout" Type="Double" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="PercentageIncrease" Type="Double" />
-          <Property Name="MaximumAmount" Type="Double" />
-          <Property Name="MaturityDate" Type="Int32" />
-          <NavigationProperty Name="UserPackages" Relationship="NobleDBModel.FK_UserPackage_Package" FromRole="Package" ToRole="UserPackage" />
-        </EntityType>
         <EntityType Name="PackageStatus">
           <Key>
             <PropertyRef Name="Id" />
@@ -539,6 +665,8 @@
           <NavigationProperty Name="Matchings" Relationship="NobleDBModel.FK_Matching_TransactionDet" FromRole="TransactionDet" ToRole="Matching" />
           <NavigationProperty Name="TransactionStatu" Relationship="NobleDBModel.FK_TransactionDet_TransactionStatus" FromRole="TransactionDet" ToRole="TransactionStatu" />
           <NavigationProperty Name="UserPackage" Relationship="NobleDBModel.FK_TransactionDet_UserPackage" FromRole="TransactionDet" ToRole="UserPackage" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="ActivationDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="TransactionStatus">
           <Key>
@@ -576,6 +704,7 @@
           <NavigationProperty Name="User1" Relationship="NobleDBModel.FK_User_User" FromRole="User" ToRole="User1" />
           <NavigationProperty Name="User2" Relationship="NobleDBModel.FK_User_User" FromRole="User1" ToRole="User" />
           <NavigationProperty Name="UserPackages" Relationship="NobleDBModel.FK_UserPackage_User" FromRole="User" ToRole="UserPackage" />
+          <NavigationProperty Name="Verifications" Relationship="NobleDBModel.FK_Verification_User" FromRole="User" ToRole="Verification" />
         </EntityType>
         <EntityType Name="UserPackage">
           <Key>
@@ -588,10 +717,10 @@
           <Property Name="CompletionDate" Type="DateTime" Precision="3" />
           <Property Name="PackStatus" Type="Int32" />
           <Property Name="Amount" Type="Double" />
-          <NavigationProperty Name="Package" Relationship="NobleDBModel.FK_UserPackage_Package" FromRole="UserPackage" ToRole="Package" />
           <NavigationProperty Name="PackageStatu" Relationship="NobleDBModel.FK_UserPackage_PackageStatus" FromRole="UserPackage" ToRole="PackageStatu" />
           <NavigationProperty Name="TransactionDets" Relationship="NobleDBModel.FK_TransactionDet_UserPackage" FromRole="UserPackage" ToRole="TransactionDet" />
           <NavigationProperty Name="User" Relationship="NobleDBModel.FK_UserPackage_User" FromRole="UserPackage" ToRole="User" />
+          <NavigationProperty Name="Package" Relationship="NobleDBModel.FK_UserPackage_Package" FromRole="UserPackage" ToRole="Package" />
         </EntityType>
         <Association Name="FK_User_Bank">
           <End Type="NobleDBModel.Bank" Role="Bank" Multiplicity="0..1" />
@@ -662,18 +791,6 @@
             </Principal>
             <Dependent Role="Matching">
               <PropertyRef Name="TransactionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPackage_Package">
-          <End Type="NobleDBModel.Package" Role="Package" Multiplicity="0..1" />
-          <End Type="NobleDBModel.UserPackage" Role="UserPackage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Package">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserPackage">
-              <PropertyRef Name="PackId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -749,6 +866,147 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="ConfirmStatusEnum">
+          <Member Name="Pending" Value="1" />
+          <Member Name="Confirmed" Value="2" />
+          <Member Name="Not_Confirmed" Value="3" />
+          <Member Name="Admin_Confirmed" Value="4" />
+        </EnumType>
+        <EnumType Name="MatchingStatusEnum">
+          <Member Name="Pending" Value="1" />
+          <Member Name="Matched" Value="2" />
+          <Member Name="Not_Matched" Value="3" />
+          <Member Name="Admin_Matched" Value="4" />
+          <Member Name="IDP" Value="5" />
+        </EnumType>
+        <EnumType Name="RoleStatusEnum">
+          <Member Name="Outbound_User" Value="1" />
+          <Member Name="General_Admin" Value="2" />
+          <Member Name="Super_Admin" Value="3" />
+          <Member Name="Promoted_Privilege" Value="4" />
+        </EnumType>
+        <EnumType Name="PackageStatusEnum">
+          <Member Name="Pending" Value="1" />
+          <Member Name="Active" Value="2" />
+          <Member Name="Disabled" Value="3" />
+          <Member Name="Closed" Value="4" />
+        </EnumType>
+        <EnumType Name="TransactionStatusEnum">
+          <Member Name="PH_Pending" Value="1" />
+          <Member Name="PH_Confirmed" Value="2" />
+          <Member Name="PH_Provisioned" Value="3" />
+          <Member Name="PH_Closed" Value="4" />
+          <Member Name="GH_Process_Begins" Value="5" />
+          <Member Name="GH_Process_Completed" Value="6" />
+          <Member Name="GH_Process_Closed" Value="7" />
+          <Member Name="GH_Floating" Value="8" />
+          <Member Name="Disabled" Value="9" />
+        </EnumType>
+        <EntityType Name="EmailValidation" BaseType="NobleDBModel.Verification">
+          <Property Name="EmailCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PhoneValidation" BaseType="NobleDBModel.Verification">
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ValidationStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Verifications" Relationship="NobleDBModel.FK_Verification_ValidationStatus" FromRole="ValidationStatu" ToRole="Verification" />
+        </EntityType>
+        <EntityType Name="Verification" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GeneratedTime" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="DateUsed" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ValidationStatu" Relationship="NobleDBModel.FK_Verification_ValidationStatus" FromRole="Verification" ToRole="ValidationStatu" />
+          <NavigationProperty Name="User" Relationship="NobleDBModel.FK_Verification_User" FromRole="Verification" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Verification_ValidationStatus">
+          <End Type="NobleDBModel.ValidationStatus" Role="ValidationStatu" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Verification" Role="Verification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Verification">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MinimumAmount" Type="Double" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="PercentageIncrease" Type="Double" />
+          <Property Name="MaximumAmount" Type="Double" />
+          <Property Name="MaturityDate" Type="Int32" />
+          <NavigationProperty Name="UserPackages" Relationship="NobleDBModel.FK_UserPackage_Package" FromRole="Package" ToRole="UserPackage" />
+        </EntityType>
+        <Association Name="FK_UserPackage_Package">
+          <End Type="NobleDBModel.Package" Role="Package" Multiplicity="0..1" />
+          <End Type="NobleDBModel.UserPackage" Role="UserPackage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPackage">
+              <PropertyRef Name="PackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="ValidationStatusEnum">
+          <Member Name="Email_Code_Generated" Value="1" />
+          <Member Name="Phone_Code_Generated" Value="2" />
+          <Member Name="Email_Verified" Value="3" />
+          <Member Name="Phone_Generated" Value="4" />
+        </EnumType>
+        <Association Name="FK_Verification_User">
+          <End Type="NobleDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Verification" Role="Verification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Verification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProxySetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMTPServer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PortNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SMSSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMSAPI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -806,19 +1064,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Packages">
-            <EntityTypeMapping TypeName="NobleDBModel.Package">
-              <MappingFragment StoreEntitySet="Package">
-                <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
-                <ScalarProperty Name="MaximumAmount" ColumnName="MaximumAmount" />
-                <ScalarProperty Name="PercentageIncrease" ColumnName="PercentageIncrease" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="MinimumAmout" ColumnName="MinimumAmout" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PackageStatus1">
             <EntityTypeMapping TypeName="NobleDBModel.PackageStatus">
               <MappingFragment StoreEntitySet="PackageStatus">
@@ -846,6 +1091,8 @@
           <EntitySetMapping Name="TransactionDets">
             <EntityTypeMapping TypeName="NobleDBModel.TransactionDet">
               <MappingFragment StoreEntitySet="TransactionDet">
+                <ScalarProperty Name="ActivationDate" ColumnName="ActivationDate" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
                 <ScalarProperty Name="UserPackId" ColumnName="UserPackId" />
                 <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
                 <ScalarProperty Name="TransactStatus" ColumnName="TransactStatus" />
@@ -898,6 +1145,76 @@
                 <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
                 <ScalarProperty Name="PackId" ColumnName="PackId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ValidationStatus1">
+            <EntityTypeMapping TypeName="NobleDBModel.ValidationStatus">
+              <MappingFragment StoreEntitySet="ValidationStatus">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Verifications">
+            <EntityTypeMapping TypeName="IsTypeOf(NobleDBModel.Verification)">
+              <MappingFragment StoreEntitySet="Verification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateUsed" ColumnName="DateUsed" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GeneratedTime" ColumnName="GeneratedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(NobleDBModel.EmailValidation)">
+              <MappingFragment StoreEntitySet="EmailValidation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EmailCode" ColumnName="EmailCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(NobleDBModel.PhoneValidation)">
+              <MappingFragment StoreEntitySet="PhoneValidation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="NobleDBModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="MaturityDate" ColumnName="MaturityDate" />
+                <ScalarProperty Name="MaximumAmount" ColumnName="MaximumAmount" />
+                <ScalarProperty Name="PercentageIncrease" ColumnName="PercentageIncrease" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MinimumAmount" ColumnName="MinimumAmount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProxySettings">
+            <EntityTypeMapping TypeName="NobleDBModel.ProxySetting">
+              <MappingFragment StoreEntitySet="ProxySetting">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailSource" ColumnName="EmailSource" />
+                <ScalarProperty Name="PortNumber" ColumnName="PortNumber" />
+                <ScalarProperty Name="SMTPServer" ColumnName="SMTPServer" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SMSSettings">
+            <EntityTypeMapping TypeName="NobleDBModel.SMSSetting">
+              <MappingFragment StoreEntitySet="SMSSetting">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="SMSAPI" ColumnName="SMSAPI" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -19,6 +19,7 @@ namespace PonziRepostiory
         {
             this.User1 = new HashSet<User>();
             this.UserPackages = new HashSet<UserPackage>();
+            this.Verifications = new HashSet<Verification>();
         }
     
         public int Id { get; set; }
@@ -48,5 +49,7 @@ namespace PonziRepostiory
         public virtual User User2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPackage> UserPackages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Verification> Verifications { get; set; }
     }
 }

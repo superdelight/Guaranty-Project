@@ -30,7 +30,6 @@ namespace PonziRepostiory
         public virtual DbSet<ConfirmationStatus> ConfirmationStatus1 { get; set; }
         public virtual DbSet<Matching> Matchings { get; set; }
         public virtual DbSet<MatchingStatus> MatchingStatus1 { get; set; }
-        public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<PackageStatus> PackageStatus1 { get; set; }
         public virtual DbSet<RoleStatus> RoleStatus1 { get; set; }
         public virtual DbSet<State> States { get; set; }
@@ -38,5 +37,10 @@ namespace PonziRepostiory
         public virtual DbSet<TransactionStatus> TransactionStatus1 { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPackage> UserPackages { get; set; }
+        public virtual DbSet<ValidationStatus> ValidationStatus1 { get; set; }
+        public virtual DbSet<Verification> Verifications { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<ProxySetting> ProxySettings { get; set; }
+        public virtual DbSet<SMSSetting> SMSSettings { get; set; }
     }
 }

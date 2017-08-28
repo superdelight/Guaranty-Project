@@ -11,11 +11,12 @@ namespace PonziRepostiory
 {
     using System;
     
-    public enum RoleStatusEnum : int
+    public enum MatchingStatusEnum : int
     {
-        Outbound_User = 1,
-        General_Admin = 2,
-        Super_Admin = 3,
-        Promoted_Privilege = 4
+        Pending = 1,
+        Matched = 2,
+        Not_Matched = 3,
+        Admin_Matched = 4,
+        IDP = 5
     }
 }

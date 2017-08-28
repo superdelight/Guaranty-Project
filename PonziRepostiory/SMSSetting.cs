@@ -10,12 +10,14 @@
 namespace PonziRepostiory
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum RoleStatusEnum : int
+    public partial class SMSSetting
     {
-        Outbound_User = 1,
-        General_Admin = 2,
-        Super_Admin = 3,
-        Promoted_Privilege = 4
+        public int Id { get; set; }
+        public string SMSAPI { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     }
 }

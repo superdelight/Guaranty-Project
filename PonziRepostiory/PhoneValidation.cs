@@ -10,12 +10,11 @@
 namespace PonziRepostiory
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum RoleStatusEnum : int
+    public partial class PhoneValidation : Verification
     {
-        Outbound_User = 1,
-        General_Admin = 2,
-        Super_Admin = 3,
-        Promoted_Privilege = 4
+        public string PhoneNumber { get; set; }
+        public string PhoneCode { get; set; }
     }
 }

@@ -10,12 +10,10 @@
 namespace PonziRepostiory
 {
     using System;
+    using System.Collections.Generic;
     
-    public enum RoleStatusEnum : int
+    public partial class EmailValidation : Verification
     {
-        Outbound_User = 1,
-        General_Admin = 2,
-        Super_Admin = 3,
-        Promoted_Privilege = 4
+        public string EmailCode { get; set; }
     }
 }

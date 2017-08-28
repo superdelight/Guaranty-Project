@@ -5,17 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ab18f58b5fc5496184cba679fd91165a" Name="Diagram1">
-        <EntityTypeShape EntityType="NobleDBModel.Bank" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="NobleDBModel.Bank" Width="1.5" PointX="3" PointY="6.875" />
         <EntityTypeShape EntityType="NobleDBModel.City" Width="1.5" PointX="3" PointY="3.875" />
-        <EntityTypeShape EntityType="NobleDBModel.ConfirmationStatus" Width="1.875" PointX="9.75" PointY="7.25" />
+        <EntityTypeShape EntityType="NobleDBModel.ConfirmationStatus" Width="1.875" PointX="12.5" PointY="8" />
         <EntityTypeShape EntityType="NobleDBModel.Matching" Width="1.5" PointX="12" PointY="3" />
         <EntityTypeShape EntityType="NobleDBModel.MatchingStatus" Width="1.5" PointX="9.75" PointY="0.875" />
-        <EntityTypeShape EntityType="NobleDBModel.Package" Width="1.75" PointX="5" PointY="9.375" />
-        <EntityTypeShape EntityType="NobleDBModel.PackageStatus" Width="1.5" PointX="5.25" PointY="12.625" />
-        <EntityTypeShape EntityType="NobleDBModel.RoleStatus" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="NobleDBModel.PackageStatus" Width="1.5" PointX="9.75" PointY="14.875" />
+        <EntityTypeShape EntityType="NobleDBModel.RoleStatus" Width="1.5" PointX="2.875" PointY="1.625" />
         <EntityTypeShape EntityType="NobleDBModel.State" Width="1.5" PointX="0.75" PointY="4" />
         <EntityTypeShape EntityType="NobleDBModel.TransactionDet" Width="1.5" PointX="9.75" PointY="3.25" />
-        <EntityTypeShape EntityType="NobleDBModel.TransactionStatus" Width="2.25" PointX="7.5" PointY="9" />
+        <EntityTypeShape EntityType="NobleDBModel.TransactionStatus" Width="2.25" PointX="9.5" PointY="8.125" />
         <EntityTypeShape EntityType="NobleDBModel.User" Width="1.5" PointX="5.25" PointY="2" />
         <EntityTypeShape EntityType="NobleDBModel.UserPackage" Width="1.5" PointX="7.5" PointY="3.25" />
         <AssociationConnector Association="NobleDBModel.FK_User_Bank" />
@@ -24,13 +23,24 @@
         <AssociationConnector Association="NobleDBModel.FK_Matching_ConfirmationStatus" />
         <AssociationConnector Association="NobleDBModel.FK_Matching_MatchingStatus" />
         <AssociationConnector Association="NobleDBModel.FK_Matching_TransactionDet" />
-        <AssociationConnector Association="NobleDBModel.FK_UserPackage_Package" />
         <AssociationConnector Association="NobleDBModel.FK_UserPackage_PackageStatus" />
         <AssociationConnector Association="NobleDBModel.FK_User_RoleStatus" />
         <AssociationConnector Association="NobleDBModel.FK_TransactionDet_TransactionStatus" />
         <AssociationConnector Association="NobleDBModel.FK_TransactionDet_UserPackage" />
         <AssociationConnector Association="NobleDBModel.FK_User_User" />
         <AssociationConnector Association="NobleDBModel.FK_UserPackage_User" />
+        <EntityTypeShape EntityType="NobleDBModel.EmailValidation" Width="1.5" PointX="14.875" PointY="11" />
+        <EntityTypeShape EntityType="NobleDBModel.PhoneValidation" Width="1.5" PointX="14.875" PointY="13.375" />
+        <EntityTypeShape EntityType="NobleDBModel.ValidationStatus" Width="1.5" PointX="10.375" PointY="12.25" />
+        <EntityTypeShape EntityType="NobleDBModel.Verification" Width="1.5" PointX="12.625" PointY="11.625" />
+        <AssociationConnector Association="NobleDBModel.FK_Verification_ValidationStatus" />
+        <InheritanceConnector EntityType="NobleDBModel.EmailValidation" />
+        <InheritanceConnector EntityType="NobleDBModel.PhoneValidation" />
+        <EntityTypeShape EntityType="NobleDBModel.Package" Width="1.5" PointX="0.75" PointY="10" />
+        <AssociationConnector Association="NobleDBModel.FK_UserPackage_Package" />
+        <AssociationConnector Association="NobleDBModel.FK_Verification_User" />
+        <EntityTypeShape EntityType="NobleDBModel.ProxySetting" Width="1.5" PointX="7.375" PointY="11.75" />
+        <EntityTypeShape EntityType="NobleDBModel.SMSSetting" Width="1.5" PointX="5.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

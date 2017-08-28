@@ -28,6 +28,8 @@ namespace PonziRepostiory
         public Nullable<int> TransactStatus { get; set; }
         public Nullable<int> TransactionAmount { get; set; }
         public Nullable<int> UserPackId { get; set; }
+        public Nullable<System.DateTime> EntryDate { get; set; }
+        public Nullable<System.DateTime> ActivationDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Matching> Matchings { get; set; }
