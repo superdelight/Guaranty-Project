@@ -23,6 +23,6 @@ namespace PonziRepostiory
         public string Remarks { get; set; }
     
         public virtual ValidationStatus ValidationStatu { get; set; }
-        public virtual User User { get; set; }
+        public virtual Registrant User { get; set; }
     }
 }

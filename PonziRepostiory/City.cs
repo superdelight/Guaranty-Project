@@ -17,7 +17,7 @@ namespace PonziRepostiory
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public City()
         {
-            this.Users = new HashSet<User>();
+            this.Users = new HashSet<Registrant>();
         }
     
         public int Id { get; set; }
@@ -26,6 +26,6 @@ namespace PonziRepostiory
     
         public virtual State State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Registrant> Users { get; set; }
     }
 }

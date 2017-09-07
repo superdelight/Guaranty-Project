@@ -20,21 +20,22 @@ namespace PonziBussinessLogic.Interface
         BusinessMessage<List<State>> GetAllStates();
 
         BusinessMessage<bool> CreateNewEmailVerification(EmailValidation EmailVerification);
-        BusinessMessage<EmailValidation> GetUserEmailVerification(string email);
-        BusinessMessage<bool> VerifyEmail(string email);
+        BusinessMessage<EmailValidation> GetRegistrantEmailVerification(string email);
+        bool VerifyEmail(string email);
         BusinessMessage<bool> VerifyEmail(string email,string code);
 
-        BusinessMessage<PhoneValidation> CreateNewPhoneVerificaton(PhoneValidation phoneValidation);
-        BusinessMessage<PhoneValidation> GetUserPhoneVerification(string email);
+        BusinessMessage<bool> CreateNewPhoneVerificaton(PhoneValidation phoneValidation);
+        BusinessMessage<PhoneValidation> GetRegistrantPhoneVerification(string email);
         BusinessMessage<bool> VerifyPhone(string email);
         BusinessMessage<bool> VerifyPhone(string email,string code);
-
-        BusinessMessage<bool> CreateNewUser(User User);
-        BusinessMessage<bool> EditUser(User User);
-        BusinessMessage<User> GetUserFromAccountNo(string AccNo);
-        BusinessMessage<User> GetUserFromEmailAddress(string EmailAddress);
-        BusinessMessage<List<User>> GetAllUsers();
-        BusinessMessage<List<User>> GetAllUsers(int statusId);
+        bool ActivateUserEmail(string userId,string code);
+        bool ActivateUserPhoneNumber(string userId, string code);
+        BusinessMessage<bool> CreateNewRegistrant(Registrant Registrant);
+        BusinessMessage<bool> EditRegistrant(Registrant Registrant);
+        BusinessMessage<Registrant> GetRegistrantFromAccountNo(string AccNo);
+        BusinessMessage<Registrant> GetRegistrantFromEmailAddress(string EmailAddress);
+        BusinessMessage<List<Registrant>> GetAllRegistrants();
+        BusinessMessage<List<Registrant>> GetAllRegistrants(int statusId);
 
         BusinessMessage<string> GetPhoneCode();
         BusinessMessage<string> GetEmailCode();

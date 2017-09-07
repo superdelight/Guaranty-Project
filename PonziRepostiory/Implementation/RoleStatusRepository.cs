@@ -21,7 +21,7 @@ namespace PonziRepostiory.Implementation
         {
 
             var roleStatus = Context.RoleStatus1.ToList();
-            if (roleStatus == null)
+            if (roleStatus.Count == 0)
             {
                 roleStatus = new List<RoleStatus>();
                 roleStatus.Add(new PonziRepostiory.RoleStatus() { Description = "Outbound_User" });
@@ -29,6 +29,7 @@ namespace PonziRepostiory.Implementation
                 roleStatus.Add(new PonziRepostiory.RoleStatus() { Description = "Super_Admin" });
                 roleStatus.Add(new PonziRepostiory.RoleStatus() { Description = "Promoted_Privilege" });
 
+                Context.RoleStatus1.AddRange(roleStatus);
                 Context.SaveChanges();
                 roleStatus = Context.RoleStatus1.ToList();
             }

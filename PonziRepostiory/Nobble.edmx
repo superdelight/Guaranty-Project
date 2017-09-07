@@ -504,11 +504,11 @@
           <EntitySet Name="States" EntityType="NobleDBModel.State" />
           <EntitySet Name="TransactionDets" EntityType="NobleDBModel.TransactionDet" />
           <EntitySet Name="TransactionStatus1" EntityType="NobleDBModel.TransactionStatus" />
-          <EntitySet Name="Users" EntityType="NobleDBModel.User" />
+          <EntitySet Name="Registrants" EntityType="NobleDBModel.Registrant" />
           <EntitySet Name="UserPackages" EntityType="NobleDBModel.UserPackage" />
           <AssociationSet Name="FK_User_Bank" Association="NobleDBModel.FK_User_Bank">
             <End Role="Bank" EntitySet="Banks" />
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="Registrants" />
           </AssociationSet>
           <AssociationSet Name="FK_City_State" Association="NobleDBModel.FK_City_State">
             <End Role="State" EntitySet="States" />
@@ -516,7 +516,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_City" Association="NobleDBModel.FK_User_City">
             <End Role="City" EntitySet="Cities" />
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="Registrants" />
           </AssociationSet>
           <AssociationSet Name="FK_Matching_ConfirmationStatus" Association="NobleDBModel.FK_Matching_ConfirmationStatus">
             <End Role="ConfirmationStatu" EntitySet="ConfirmationStatus1" />
@@ -536,7 +536,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_RoleStatus" Association="NobleDBModel.FK_User_RoleStatus">
             <End Role="RoleStatu" EntitySet="RoleStatus1" />
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="Registrants" />
           </AssociationSet>
           <AssociationSet Name="FK_TransactionDet_TransactionStatus" Association="NobleDBModel.FK_TransactionDet_TransactionStatus">
             <End Role="TransactionStatu" EntitySet="TransactionStatus1" />
@@ -547,11 +547,11 @@
             <End Role="TransactionDet" EntitySet="TransactionDets" />
           </AssociationSet>
           <AssociationSet Name="FK_User_User" Association="NobleDBModel.FK_User_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="User1" EntitySet="Users" />
+            <End Role="User" EntitySet="Registrants" />
+            <End Role="User1" EntitySet="Registrants" />
           </AssociationSet>
           <AssociationSet Name="FK_UserPackage_User" Association="NobleDBModel.FK_UserPackage_User">
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="Registrants" />
             <End Role="UserPackage" EntitySet="UserPackages" />
           </AssociationSet>
           <EntitySet Name="ValidationStatus1" EntityType="NobleDBModel.ValidationStatus" />
@@ -566,7 +566,7 @@
             <End Role="UserPackage" EntitySet="UserPackages" />
           </AssociationSet>
           <AssociationSet Name="FK_Verification_User" Association="NobleDBModel.FK_Verification_User">
-            <End Role="User" EntitySet="Users" />
+            <End Role="User" EntitySet="Registrants" />
             <End Role="Verification" EntitySet="Verifications" />
           </AssociationSet>
           <EntitySet Name="ProxySettings" EntityType="NobleDBModel.ProxySetting" />
@@ -676,7 +676,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TransactionDets" Relationship="NobleDBModel.FK_TransactionDet_TransactionStatus" FromRole="TransactionStatu" ToRole="TransactionDet" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Registrant">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -724,7 +724,7 @@
         </EntityType>
         <Association Name="FK_User_Bank">
           <End Type="NobleDBModel.Bank" Role="Bank" Multiplicity="0..1" />
-          <End Type="NobleDBModel.User" Role="User" Multiplicity="*" />
+          <End Type="NobleDBModel.Registrant" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Bank">
               <PropertyRef Name="Id" />
@@ -748,7 +748,7 @@
         </Association>
         <Association Name="FK_User_City">
           <End Type="NobleDBModel.City" Role="City" Multiplicity="0..1" />
-          <End Type="NobleDBModel.User" Role="User" Multiplicity="*" />
+          <End Type="NobleDBModel.Registrant" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="Id" />
@@ -808,7 +808,7 @@
         </Association>
         <Association Name="FK_User_RoleStatus">
           <End Type="NobleDBModel.RoleStatus" Role="RoleStatu" Multiplicity="0..1" />
-          <End Type="NobleDBModel.User" Role="User" Multiplicity="*" />
+          <End Type="NobleDBModel.Registrant" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RoleStatu">
               <PropertyRef Name="Id" />
@@ -843,8 +843,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_User">
-          <End Type="NobleDBModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="NobleDBModel.User" Role="User1" Multiplicity="*" />
+          <End Type="NobleDBModel.Registrant" Role="User" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Registrant" Role="User1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -855,7 +855,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserPackage_User">
-          <End Type="NobleDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Registrant" Role="User" Multiplicity="0..1" />
           <End Type="NobleDBModel.UserPackage" Role="UserPackage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -972,10 +972,10 @@
           <Member Name="Email_Code_Generated" Value="1" />
           <Member Name="Phone_Code_Generated" Value="2" />
           <Member Name="Email_Verified" Value="3" />
-          <Member Name="Phone_Generated" Value="4" />
+          <Member Name="Phone_Verified" Value="4" />
         </EnumType>
         <Association Name="FK_Verification_User">
-          <End Type="NobleDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="NobleDBModel.Registrant" Role="User" Multiplicity="0..1" />
           <End Type="NobleDBModel.Verification" Role="Verification" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -1112,8 +1112,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="NobleDBModel.User">
+          <EntitySetMapping Name="Registrants">
+            <EntityTypeMapping TypeName="NobleDBModel.Registrant">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="ReferralId" ColumnName="ReferralId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

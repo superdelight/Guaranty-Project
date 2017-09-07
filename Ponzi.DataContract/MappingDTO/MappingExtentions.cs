@@ -14,21 +14,21 @@ namespace Ponzi.DataContract.MappingDTO
         {
             return source != null && toCheck != null && source.IndexOf(toCheck, comp) >= 0;
         }
-        public static TransactionDetailDTO ToDTO(this TransactionDetail source)
-        {
-            return new TransactionDetailDTO()
-            {
-                Description = source.Description,
-                IsActive = (bool)source.IsActive,
-                MaturityTime = (int)source.MaturityTime,
-                BenefitPercentage=(int)source.BenefitPercentage
-            };
-        }
-        public static List<TransactionDetailDTO> ToDTO(this List<TransactionDetail> source)
-        {
-            List<TransactionDetailDTO> groups = new List<TransactionDetailDTO>();
-            source.ForEach(o => groups.Add(o.ToDTO()));
-            return groups;
-        }
+        //public static TransactionDetailDTO ToDTO(this TransactionDetail source)
+        //{
+        //    return new TransactionDetailDTO()
+        //    {
+        //        Description = source.Description,
+        //        IsActive = (bool)source.IsActive,
+        //        MaturityTime = (int)source.MaturityTime,
+        //        BenefitPercentage=(int)source.BenefitPercentage
+        //    };
+        //}
+        //public static List<TransactionDetailDTO> ToDTO(this List<TransactionDetail> source)
+        //{
+        //    List<TransactionDetailDTO> groups = new List<TransactionDetailDTO>();
+        //    source.ForEach(o => groups.Add(o.ToDTO()));
+        //    return groups;
+        //}
     }
 }

@@ -21,7 +21,7 @@ namespace PonziRepostiory.Implementation
         {
            
             var validationStatus = Context.ValidationStatus1.ToList();
-            if (validationStatus == null)
+            if (validationStatus.Count <= 0)
             {
                 validationStatus = new List<ValidationStatus>();
                 validationStatus.Add(new PonziRepostiory.ValidationStatus() { Description = "Email_Code_Generated" });

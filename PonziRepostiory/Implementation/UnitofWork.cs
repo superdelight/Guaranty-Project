@@ -23,6 +23,9 @@ namespace PonziRepostiory.Implementation
             PhoneValidationContext = new PhoneValidationRepository(_Context);
             EmailProxyContext = new ProxySettingRepository(_Context);
             SMSProxySetting = new SMSAPIRepository(_Context);
+            UserDetails = new UserRepository(_Context);
+            UserRoleContext = new RoleStatusRepository(_Context);
+            ValidationStatusContext = new ValidationStatusRepository(_Context);
        
          
         }
@@ -44,6 +47,11 @@ namespace PonziRepostiory.Implementation
 
         public IUserRepository UserDetails { get; private set; }
 
+        public IRoleStatusRepoitory UserRoleContext { get; private set; }
+
+        public IValidationStatusRepository ValidationStatusContext { get; private set; }
+
+
         public void Dispose()
         {
             
@@ -56,7 +64,7 @@ namespace PonziRepostiory.Implementation
             {
                 return _Context.SaveChanges();
             }
-            catch 
+            catch (Exception ex)
             {
                 return -1;
             }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PonziBussinessLogic.Implementation
 {
@@ -45,7 +46,6 @@ namespace PonziBussinessLogic.Implementation
                 return msg;
             }
         }
-
         public BusinessMessage<Package> GetSinglePackage(int Id)
         {
             BusinessMessage<Package> msg = new BusinessMessage<Package>();
@@ -55,8 +55,6 @@ namespace PonziBussinessLogic.Implementation
             msg.Message = string.Format("1 item selected");
             return msg;
         }
-
-  
         public BusinessMessage<List<Package>> GetAllPackages()
         {
             BusinessMessage<List<Package>> msg = new BusinessMessage<List<Package>>();
@@ -106,7 +104,10 @@ namespace PonziBussinessLogic.Implementation
             msg.Message = string.Format("{0} listed", det.Count());
             return msg;
         }
-
+        public List<ValidationStatus> GetAllValidationStatus()
+        {
+            return _unitofWork.ValidationStatusContext.GetValidationAllStatus().ToList();
+        }
         public BusinessMessage<List<State>> GetAllStates()
         {
             BusinessMessage<List<State>> msg = new BusinessMessage<List<State>>();
@@ -117,20 +118,24 @@ namespace PonziBussinessLogic.Implementation
             return msg;
         }
 
-        public BusinessMessage<bool> CreateNewUser(User User)
+        public BusinessMessage<bool> CreateNewRegistrant(Registrant Registrant)
         {
             BusinessMessage<bool> msg = new BusinessMessage<bool>();
-            if (_unitofWork.UserDetails.ConfirmUserByEmail(User.EmailAddress) == false)
+            if (_unitofWork.UserDetails.ConfirmUserByEmail(Registrant.EmailAddress) == false)
             {
-                if (_unitofWork.UserDetails.ConfirmUserByAccountNo(User.AccountNo) == false)
+                if (_unitofWork.UserDetails.ConfirmUserByAccountNo(Registrant.AccountNo) == false)
                 {
-                    if (_unitofWork.UserDetails.ConfirmUserByPhoneNumber(User.PhoneNo) == false)
+                    if (_unitofWork.UserDetails.ConfirmUserByPhoneNumber(Registrant.PhoneNo) == false)
                     {
-                        
-                        _unitofWork.UserDetails.Add(User);
+
+                        GetAllValidationStatus();
+                        _unitofWork.EmailProxyContext.GetActiveProxySetting();
+                     
+                        _unitofWork.UserDetails.Add(Registrant);
                         if (_unitofWork.SaveChanges() > 0)
                         {
-                            var usr = _unitofWork.UserDetails.GetUserByEmail(User.EmailAddress);
+
+                            var usr = _unitofWork.UserDetails.GetUserByEmail(Registrant.EmailAddress);
                             EmailValidation emVal = new EmailValidation();
                             emVal.EmailCode = GetEmailCode().Result;
                             emVal.GeneratedTime = DateTime.Now;
@@ -138,13 +143,25 @@ namespace PonziBussinessLogic.Implementation
                             emVal.UserId = usr.Id;
                             emVal.Status =Convert.ToInt32(ValidationStatusEnum.Email_Code_Generated);
 
+
+                            PhoneValidation phoneVal = new PhoneValidation();
+                            phoneVal.GeneratedTime = DateTime.Now;
+                            phoneVal.PhoneCode = GetPhoneCode().Result;
+                            phoneVal.Remarks = null;
+                            phoneVal.UserId = usr.Id;
+                            phoneVal.Status= Convert.ToInt32(ValidationStatusEnum.Phone_Code_Generated);
+                            phoneVal.IsActive = true;
+
+
                             CreateNewEmailVerification(emVal);
+                            CreateNewPhoneVerificaton(phoneVal);
+
 
 
 
                             msg.ResponseCode = ResponseCode.OK;
                             msg.Result = true;
-                            msg.Message = string.Format("Hello, {0} {1}<br/> Your Profile has been Successfully Created", User.Surname, User.Othername);
+                            msg.Message = string.Format("Hello, {0} {1}<br/> Your Profile has been Successfully Created", Registrant.Surname, Registrant.Othername);
                         }
                         else
                         {
@@ -157,33 +174,33 @@ namespace PonziBussinessLogic.Implementation
                     {
                         msg.ResponseCode = ResponseCode.NotOK;
                         msg.Result = false;
-                        msg.Message = "There already exists User with similar Phone Number";
+                        msg.Message = "There already exists Registrant with similar Phone Number";
                     }
                 }
                 else
                 {
                     msg.ResponseCode = ResponseCode.NotOK;
                     msg.Result = false;
-                    msg.Message = "There already exists User with similar Account Number";
+                    msg.Message = "There already exists Registrant with similar Account Number";
                 }
             }
             else
             {
                 msg.ResponseCode = ResponseCode.NotOK;
                 msg.Result = false;
-                msg.Message = "There already exists User with similar Email Address";
+                msg.Message = "There already exists Registrant with similar Email Address";
             }
             return msg;
         }
-        public BusinessMessage<bool> EditUser(User User)
+        public BusinessMessage<bool> EditRegistrant(Registrant Registrant)
         {
             BusinessMessage<bool> msg = new BusinessMessage<bool>();
-            _unitofWork.UserDetails.Edit(User, User.Id);
+            _unitofWork.UserDetails.Edit(Registrant, Registrant.Id);
             if(_unitofWork.SaveChanges()>0)
             {
                 msg.ResponseCode = ResponseCode.OK;
                 msg.Result = true;
-                msg.Message = string.Format("{0} {1} has been successfully updated",User.Surname,User.Othername);
+                msg.Message = string.Format("{0} {1} has been successfully updated",Registrant.Surname,Registrant.Othername);
             }
             else
             {
@@ -193,20 +210,18 @@ namespace PonziBussinessLogic.Implementation
             }
             return msg;
         }
-
-        public BusinessMessage<User> GetUserFromAccountNo(string AccNo)
+        public BusinessMessage<Registrant> GetRegistrantFromAccountNo(string AccNo)
         {
-            BusinessMessage<User> msg = new BusinessMessage<User>();
+            BusinessMessage<Registrant> msg = new BusinessMessage<Registrant>();
             var det = _unitofWork.UserDetails.GetUserByAccountNo(AccNo);
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = det;
             msg.Message = string.Format("1 Item Selected");
             return msg;
         }
-
-        public BusinessMessage<User> GetUserFromEmailAddress(string EmailAddress)
+        public BusinessMessage<Registrant> GetRegistrantFromEmailAddress(string EmailAddress)
         {
-            BusinessMessage<User> msg = new BusinessMessage<User>();
+            BusinessMessage<Registrant> msg = new BusinessMessage<Registrant>();
             var det = _unitofWork.UserDetails.GetUserByEmail(EmailAddress);
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = det;
@@ -214,26 +229,24 @@ namespace PonziBussinessLogic.Implementation
             return msg;
         }
 
-        public BusinessMessage<List<User>> GetAllUsers()
+        public BusinessMessage<List<Registrant>> GetAllRegistrants()
         {
-            BusinessMessage<List<User>> msg = new BusinessMessage<List<User>>();
+            BusinessMessage<List<Registrant>> msg = new BusinessMessage<List<Registrant>>();
             var det = _unitofWork.UserDetails.GetAll();
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = det.ToList();
             msg.Message = string.Format("{0} listed", det.Count());
             return msg;
         }
-
-        public BusinessMessage<List<User>> GetAllUsers(int statusId)
+        public BusinessMessage<List<Registrant>> GetAllRegistrants(int statusId)
         {
-            BusinessMessage<List<User>> msg = new BusinessMessage<List<User>>();
+            BusinessMessage<List<Registrant>> msg = new BusinessMessage<List<Registrant>>();
             var det = _unitofWork.UserDetails.GetAllUsers(statusId);
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = det.ToList();
             msg.Message = string.Format("{0} listed", det.Count());
             return msg;
         }
-
         public BusinessMessage<Package> GetDefaultPackage()
         {
             BusinessMessage<Package> msg = new BusinessMessage<Package>();
@@ -281,37 +294,62 @@ namespace PonziBussinessLogic.Implementation
         {
             BusinessMessage<bool> response = new PonziBussinessLogic.BusinessMessage<bool>();
             _unitofWork.EmailValidationContext.Add(emailVerification);
-            if(_unitofWork.SaveChanges()>0)
+            if (_unitofWork.SaveChanges() > 0)
+            {
+             
+                string DomainName = HttpContext.Current.Request.Url.Host;
+                int port = HttpContext.Current.Request.Url.Port;
+                string msg = string.Format("<html><body><h2>Account Activation Message</h2><p>Hello {0},</p><p>Thank you for Signing up for your helper's Account.<br/><a href=http://{1}:{2}/Nobble/TestActivation.aspx?code={3}>Kindly click here to make your account fully functional... </a> </p></body></html>", emailVerification.User.Surname,DomainName,port,emailVerification.EmailCode);
+                response.ResponseCode = ResponseCode.OK;
+                response.Message = "You have successfully saved created Phone Verification";
+                response.Result = true;
+                _unitofWork.EmailProxyContext.SendEmail(true, msg, "Activation Mail", emailVerification.User.EmailAddress);
+
+                response.ResponseCode = ResponseCode.OK;
+                response.Message = "";
+                response.Result = true;
+
+            }
+            return response;
+        }
+        public BusinessMessage<EmailValidation> GetRegistrantEmailVerification(string email)
+        {
+            throw new NotImplementedException();
+        }
+        private EmailValidation GetUserEmailCode(string email)
+        {
+            return _unitofWork.EmailValidationContext.GetRecentEmailCode(email);
+        }
+        private PhoneValidation GetUserPhoneCode(string email)
+        {
+            return _unitofWork.PhoneValidationContext.GetRecentPhoneCode(email);
+        }
+        public bool VerifyEmail(string email)
+        {
+            //var emailVerification=_unitofWork.EmailValidationContext\
+            throw new NotImplementedException();
+        }
+
+        public BusinessMessage<bool> CreateNewPhoneVerificaton(PhoneValidation phoneValidation)
+        {
+            BusinessMessage<bool> response = new PonziBussinessLogic.BusinessMessage<bool>();
+            _unitofWork.PhoneValidationContext.Add(phoneValidation);
+            if (_unitofWork.SaveChanges() > 0)
             {
                 response.ResponseCode = ResponseCode.OK;
                 response.Message = "You have successfully saved created Email Verification";
                 response.Result = true;
-                _unitofWork.SMSProxySetting.SendSMS(emailVerification.User.PhoneNo, string.Format("Activation Code {0}", GetPhoneCode()), "GTH");
-                _unitofWork.EmailProxyContext.SendEmail(true, "OK", "ACTIVATION CODE", emailVerification.User.EmailAddress);
+                _unitofWork.SMSProxySetting.SendSMS(phoneValidation.User.PhoneNo, string.Format("Account Activation Code is {0}. It is valid for 24 hours", phoneValidation.PhoneCode), "GTH");
                 response.ResponseCode = ResponseCode.OK;
                 response.Message = "";
                 response.Result = true;
-                
+
             }
-            return response;   
+            return response;
+           
         }
 
-        public BusinessMessage<EmailValidation> GetUserEmailVerification(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BusinessMessage<bool> VerifyEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BusinessMessage<PhoneValidation> CreateNewPhoneVerificaton(PhoneValidation phoneValidation)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BusinessMessage<PhoneValidation> GetUserPhoneVerification(string email)
+        public BusinessMessage<PhoneValidation> GetRegistrantPhoneVerification(string email)
         {
             throw new NotImplementedException();
         }
@@ -323,10 +361,70 @@ namespace PonziBussinessLogic.Implementation
 
         public BusinessMessage<bool> VerifyEmail(string email, string code)
         {
-            throw new NotImplementedException();
+            BusinessMessage<bool> response = new PonziBussinessLogic.BusinessMessage<bool>();
+            if(_unitofWork.EmailValidationContext.ConfirmEmailCode(email, code))
+            {
+                var emailVal = _unitofWork.EmailValidationContext.GetRecentEmailCode(email);
+                if(emailVal.EmailCode==code)
+                {
+                    emailVal.Status = Convert.ToInt32(ValidationStatusEnum.Email_Verified);
+                    _unitofWork.SaveChanges();
+                    response.ResponseCode = ResponseCode.OK;
+                    response.Message = string.Format("Your Email Activation is successful...");
+                    response.Result = true;
+                }
+                else
+                {
+                    response.ResponseCode = ResponseCode.NotOK;
+                    response.Message = string.Format("The Code you entered has expired...");
+                    response.Result = true;
+                }
+            }
+            else
+            {
+                response.ResponseCode = ResponseCode.NotOK;
+                response.Message = string.Format("Unable to verify Email Activation Code...");
+                response.Result = true;
+            }
+            return response;
         }
 
         public BusinessMessage<bool> VerifyPhone(string email, string code)
+        {
+            BusinessMessage<bool> response = new PonziBussinessLogic.BusinessMessage<bool>();
+            if (_unitofWork.PhoneValidationContext.ConfirmPhoneCode(email, code))
+            {
+                var emailVal = _unitofWork.PhoneValidationContext.GetRecentPhoneCode(email);
+                if (emailVal.PhoneCode == code)
+                {
+                    emailVal.Status = Convert.ToInt32(ValidationStatusEnum.Phone_Verified);
+                    _unitofWork.SaveChanges();
+                    response.ResponseCode = ResponseCode.OK;
+                    response.Message = string.Format("Your Phone Activation is successful...");
+                    response.Result = true;
+                }
+                else
+                {
+                    response.ResponseCode = ResponseCode.NotOK;
+                    response.Message = string.Format("The Code you entered has expired...");
+                    response.Result = true;
+                }
+            }
+            else
+            {
+                response.ResponseCode = ResponseCode.NotOK;
+                response.Message = string.Format("Unable to verify Phone Activation Code...");
+                response.Result = true;
+            }
+            return response;
+        }
+
+        public bool ActivateUserEmail(string userId, string code)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateUserPhoneNumber(string userId, string code)
         {
             throw new NotImplementedException();
         }

@@ -18,7 +18,7 @@ namespace PonziRepostiory.Implementation
         }
         public bool ConfirmEmailCode(string userId, string code)
         {
-            return Context.Verifications.OfType<EmailValidation>().Where(u => u.User.EmailAddress == userId &&
+            return Context.Verifications.OfType<EmailValidation>().Where(u => u.User.Username.ToLower().Trim() == userId.ToLower().Trim() &&
             u.EmailCode == code).Any();
         }
         public bool EmailIsValid(string userEmail)
@@ -26,6 +26,11 @@ namespace PonziRepostiory.Implementation
 
             return Context.Verifications.OfType<EmailValidation>().Where(u => u.User.EmailAddress == userEmail &&
             u.Status == (int)ValidationStatusEnum.Email_Verified).Any();
-        } 
+        }
+
+        public EmailValidation GetRecentEmailCode(string userId)
+        {
+            return Context.Verifications.OfType<EmailValidation>().Where(c => c.User.Username.ToLower() == userId.ToLower()).OrderByDescending(m => m.Id).FirstOrDefault();
+        }
     }
 }

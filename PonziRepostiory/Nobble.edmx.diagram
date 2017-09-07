@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="NobleDBModel.State" Width="1.5" PointX="0.75" PointY="4" />
         <EntityTypeShape EntityType="NobleDBModel.TransactionDet" Width="1.5" PointX="9.75" PointY="3.25" />
         <EntityTypeShape EntityType="NobleDBModel.TransactionStatus" Width="2.25" PointX="9.5" PointY="8.125" />
-        <EntityTypeShape EntityType="NobleDBModel.User" Width="1.5" PointX="5.25" PointY="2" />
+        <EntityTypeShape EntityType="NobleDBModel.Registrant" Width="1.5" PointX="5.25" PointY="2" />
         <EntityTypeShape EntityType="NobleDBModel.UserPackage" Width="1.5" PointX="7.5" PointY="3.25" />
         <AssociationConnector Association="NobleDBModel.FK_User_Bank" />
         <AssociationConnector Association="NobleDBModel.FK_City_State" />

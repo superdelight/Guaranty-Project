@@ -35,7 +35,7 @@ namespace PonziRepostiory
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<TransactionDet> TransactionDets { get; set; }
         public virtual DbSet<TransactionStatus> TransactionStatus1 { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Registrant> Registrants { get; set; }
         public virtual DbSet<UserPackage> UserPackages { get; set; }
         public virtual DbSet<ValidationStatus> ValidationStatus1 { get; set; }
         public virtual DbSet<Verification> Verifications { get; set; }

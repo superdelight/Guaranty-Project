@@ -16,6 +16,6 @@ namespace PonziRepostiory
         Email_Code_Generated = 1,
         Phone_Code_Generated = 2,
         Email_Verified = 3,
-        Phone_Generated = 4
+        Phone_Verified = 4
     }
 }

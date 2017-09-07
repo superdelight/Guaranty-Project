@@ -19,11 +19,14 @@ namespace Ponzi.Implementation.Implementation
         {
             this.adminLogic = adminLogic;
         }
-        [OperationContract]
-       BusinessMessage<bool> CreateNewPackage(string Description, int BenefitPercentage, bool IsActive, int maturityDate)
-        {
-            TransactionDetail trans = new TransactionDetail { Description = Description, BenefitPercentage = BenefitPercentage, IsActive = IsActive, MaturityTime = maturityDate };
-            return adminLogic.CreateNewTransactionDetail(trans);
-        }
+        //[OperationContract]
+        //BusinessMessage<bool> CreateNewPackage(string Description, int BenefitPercentage, bool IsActive, int maturityDate)
+        // {
+        //     //TransactionDetail trans = new TransactionDetail { Description = Description, BenefitPercentage = BenefitPercentage, IsActive = IsActive, MaturityTime = maturityDate };
+        //     //return adminLogic.CreateNewTransactionDetail(trans);
+
+        // }
+        //}
     }
+
 }

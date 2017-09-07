@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 namespace PonziRepostiory.Interface
 {
     
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<Registrant>
     {
         bool ConfirmUserByAccountNo(string AccountNo);
         bool AccountIsActive(string emailAddress);
         bool ConfirmUserByPhoneNumber(string PhoneNumber);
         bool ConfirmUserByEmail(string EmailAddress);
-        User GetUserByEmail(string emailAddress);
-        User GetUserByAccountNo(string accNo);
-        IEnumerable<User> GetAllUsers(int statusId);
+        Registrant GetUserByEmail(string emailAddress);
+        Registrant GetUserByAccountNo(string accNo);
+        IEnumerable<Registrant> GetAllUsers(int statusId);
         bool IsRole(string emailAddress, int Status);
     }
 }

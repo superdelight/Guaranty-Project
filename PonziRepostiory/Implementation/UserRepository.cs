@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PonziRepostiory.Implementation
 {
-    public class UserRepository : Repository<User>, IUserRepository
+    public class UserRepository : Repository<Registrant>, IUserRepository
     {
         private NobleDBEntities Context;
         public UserRepository(NobleDBEntities Context)
@@ -18,33 +18,33 @@ namespace PonziRepostiory.Implementation
       
         public bool AccountIsActive(string emailAddress)
         {
-            return Context.Users.Any(c => c.SortCode.ToLower() == "confirmed");
+            return Context.Registrants.Any(c => c.SortCode.ToLower() == "confirmed");
         }
         public bool ConfirmUserByAccountNo(string AccountNo)
         {
-            return Context.Users.Any(d => d.AccountNo == AccountNo);
+            return Context.Registrants.Any(d => d.AccountNo == AccountNo);
         }
         public bool ConfirmUserByEmail(string EmailAddress)   
         {
-            return Context.Users.Any(d => d.EmailAddress == EmailAddress);
+            return Context.Registrants.Any(d => d.EmailAddress == EmailAddress);
         }
         public bool ConfirmUserByPhoneNumber(string PhoneNumber)
         {
-            return Context.Users.Any(d => d.PhoneNo == PhoneNumber);
+            return Context.Registrants.Any(d => d.PhoneNo == PhoneNumber);
         }
 
-        public IEnumerable<User> GetAllUsers(int statusId)
+        public IEnumerable<Registrant> GetAllUsers(int statusId)
         {
-            return Context.Users.Where(c => c.NobleStatus == statusId).ToList();
+            return Context.Registrants.Where(c => c.NobleStatus == statusId).ToList();
         }
 
-        public User GetUserByAccountNo(string accNo)
+        public Registrant GetUserByAccountNo(string accNo)
         {
-            return Context.Users.Single(c => c.AccountNo == accNo);
+            return Context.Registrants.Single(c => c.AccountNo == accNo);
         }
-        public User GetUserByEmail(string emailAddress)
+        public Registrant GetUserByEmail(string emailAddress)
         {
-            return Context.Users.Single(c => c.EmailAddress == emailAddress);
+            return Context.Registrants.Single(c => c.EmailAddress == emailAddress);
         }
 
         public bool IsRole(string emailAddress, int Status)

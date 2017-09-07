@@ -20,15 +20,20 @@ namespace PonziRepostiory.Implementation
 
         public bool ConfirmPhoneCode(string userId, string code)
         {
-            return Context.Verifications.OfType<PhoneValidation>().Where(u => u.User.EmailAddress == userId &&
+            return Context.Verifications.OfType<PhoneValidation>().Where(u => u.User.Username.ToLower().Trim() == userId.ToLower().Trim() &&
                u.PhoneCode == code).Any();
         }
 
+        public PhoneValidation GetRecentPhoneCode(string userId)
+        {
+            return Context.Verifications.OfType<PhoneValidation>().Where(c => c.User.Username.ToLower() == userId.ToLower()).OrderByDescending(m => m.Id).FirstOrDefault();
+         
+        }
 
         public bool PhoneIsValid(string userEmail)
         {
             return Context.Verifications.OfType<PhoneValidation>().Where(u => u.User.EmailAddress == userEmail &&
-            u.Status == (int)ValidationStatusEnum.Phone_Generated).Any();
+            u.Status == (int)ValidationStatusEnum.Phone_Code_Generated).Any();
         }
     }
 }

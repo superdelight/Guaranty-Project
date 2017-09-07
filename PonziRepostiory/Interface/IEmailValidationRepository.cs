@@ -11,5 +11,6 @@ namespace PonziRepostiory.Interface
     {
         bool EmailIsValid(string userEmail);
         bool ConfirmEmailCode(string userId, string code);
+        EmailValidation GetRecentEmailCode(string userId);
     }
 }

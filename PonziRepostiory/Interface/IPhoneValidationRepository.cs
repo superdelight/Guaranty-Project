@@ -11,5 +11,6 @@ namespace PonziRepostiory.Interface
     {
         bool PhoneIsValid(string userEmail);
         bool ConfirmPhoneCode(string userId, string code);
+        PhoneValidation GetRecentPhoneCode(string userId);
     }
 }
