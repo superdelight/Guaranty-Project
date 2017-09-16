@@ -16,7 +16,7 @@ namespace PonziBussinessLogic.Implementation
         IUnitofWork _unitofWork = new UnitofWork();
 
 
-        public BusinessMessage<bool> CreateNewPackage(Package Package)
+        public BusinessMessage<bool> CreateNewPackage(MPackage Package)
         {
             try
             {
@@ -46,18 +46,18 @@ namespace PonziBussinessLogic.Implementation
                 return msg;
             }
         }
-        public BusinessMessage<Package> GetSinglePackage(int Id)
+        public BusinessMessage<MPackage> GetSinglePackage(int Id)
         {
-            BusinessMessage<Package> msg = new BusinessMessage<Package>();
+            BusinessMessage<MPackage> msg = new BusinessMessage<MPackage>();
             var trans = _unitofWork.PackageDetails.GetSingle(Id);
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = trans;
             msg.Message = string.Format("1 item selected");
             return msg;
         }
-        public BusinessMessage<List<Package>> GetAllPackages()
+        public BusinessMessage<List<MPackage>> GetAllPackages()
         {
-            BusinessMessage<List<Package>> msg = new BusinessMessage<List<Package>>();
+            BusinessMessage<List<MPackage>> msg = new BusinessMessage<List<MPackage>>();
             var trans = _unitofWork.PackageDetails.GetAll();
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = trans.ToList();
@@ -247,10 +247,10 @@ namespace PonziBussinessLogic.Implementation
             msg.Message = string.Format("{0} listed", det.Count());
             return msg;
         }
-        public BusinessMessage<Package> GetDefaultPackage()
+        public BusinessMessage<MPackage> GetDefaultPackage()
         {
-            BusinessMessage<Package> msg = new BusinessMessage<Package>();
-            var det = _unitofWork.PackageDetails.GetDefaultPackage();
+            BusinessMessage<MPackage> msg = new BusinessMessage<MPackage>();
+            var det = _unitofWork.PackageDetails.GetSingle(1);
             msg.ResponseCode = ResponseCode.OK;
             msg.Result = det;
             msg.Message = string.Format("One Item Selected...");
@@ -299,7 +299,7 @@ namespace PonziBussinessLogic.Implementation
              
                 string DomainName = HttpContext.Current.Request.Url.Host;
                 int port = HttpContext.Current.Request.Url.Port;
-                string msg = string.Format("<html><body><h2>Account Activation Message</h2><p>Hello {0},</p><p>Thank you for Signing up for your helper's Account.<br/><a href=http://{1}:{2}/Nobble/TestActivation.aspx?code={3}>Kindly click here to make your account fully functional... </a> </p></body></html>", emailVerification.User.Surname,DomainName,port,emailVerification.EmailCode);
+                string msg = string.Format("<html><body><h2>Account Activation Message</h2><p>Hello {0},</p><p>Your Login ID is <b>{1}</b><br/>Password is: <b>{2}</b> </p><p>Thank you for Signing up for your helper's Account.<br/><a href=http://{3}:{4}/email-activation?code={5}>Kindly click here to make your account fully functional... </a> </p></body></html>",  emailVerification.User.Surname, emailVerification.User.Username, emailVerification.User.Password, DomainName,port,emailVerification.EmailCode);
                 response.ResponseCode = ResponseCode.OK;
                 response.Message = "You have successfully saved created Phone Verification";
                 response.Result = true;
@@ -427,6 +427,25 @@ namespace PonziBussinessLogic.Implementation
         public bool ActivateUserPhoneNumber(string userId, string code)
         {
             throw new NotImplementedException();
+        }
+
+        public BusinessMessage<Registrant> GetRegistrant(string loginId)
+        {
+            BusinessMessage<Registrant> response = new PonziBussinessLogic.BusinessMessage<Registrant>();
+            var reply = _unitofWork.UserDetails.GetUser(loginId);
+            if (reply != null)
+            {
+                response.ResponseCode = ResponseCode.OK;
+                response.Message = "Response OK";
+                response.Result = reply;
+            }
+            else
+            {
+                response.ResponseCode = ResponseCode.OK;
+                response.Message = "Response OK";
+                response.Result = reply;
+            }
+            return response;
         }
     }
 }

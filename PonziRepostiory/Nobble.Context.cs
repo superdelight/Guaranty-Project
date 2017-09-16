@@ -39,8 +39,8 @@ namespace PonziRepostiory
         public virtual DbSet<UserPackage> UserPackages { get; set; }
         public virtual DbSet<ValidationStatus> ValidationStatus1 { get; set; }
         public virtual DbSet<Verification> Verifications { get; set; }
-        public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<ProxySetting> ProxySettings { get; set; }
         public virtual DbSet<SMSSetting> SMSSettings { get; set; }
+        public virtual DbSet<MPackage> MPackages { get; set; }
     }
 }

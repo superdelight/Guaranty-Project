@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessMessage.cs" />
+    <Compile Include="Implementation\PonziPledgeLogic.cs" />
     <Compile Include="Implementation\PonziAdminLogin.cs" />
     <Compile Include="Interface\EmailUtility.cs" />
+    <Compile Include="Interface\IPonziPledgeLogic.cs" />
     <Compile Include="Interface\IPonziAdminLogic.cs" />
     <Compile Include="Interface\SMSUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

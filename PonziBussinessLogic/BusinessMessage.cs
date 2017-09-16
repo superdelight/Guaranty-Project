@@ -14,7 +14,13 @@ namespace PonziBussinessLogic
     {
         OK=1,
         NotOK=2,
-        Null=3
+        Null=3,
+        Active=4,
+        Matched_For_PH=5,
+        Matched_For_GH=6,
+        Closed=7,
+        Error=8
+
     }
     public class BaseMessage
     {

@@ -12,10 +12,10 @@ namespace PonziRepostiory
     using System;
     using System.Collections.Generic;
     
-    public partial class Package
+    public partial class MPackage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Package()
+        public MPackage()
         {
             this.UserPackages = new HashSet<UserPackage>();
         }
@@ -26,7 +26,10 @@ namespace PonziRepostiory
         public Nullable<bool> IsActive { get; set; }
         public Nullable<double> PercentageIncrease { get; set; }
         public Nullable<double> MaximumAmount { get; set; }
-        public Nullable<int> MaturityDate { get; set; }
+        public Nullable<int> MinimumPHDays { get; set; }
+        public Nullable<int> MinimumGHDays { get; set; }
+        public Nullable<int> MaximumPHDays { get; set; }
+        public Nullable<int> MaximumGHDays { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPackage> UserPackages { get; set; }

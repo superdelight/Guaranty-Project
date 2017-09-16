@@ -38,6 +38,11 @@ namespace PonziRepostiory.Implementation
             return Context.Registrants.Where(c => c.NobleStatus == statusId).ToList();
         }
 
+        public Registrant GetUser(string loginId)
+        {
+            return Context.Registrants.Where(c => c.Username.Trim().ToLower() == loginId.Trim().ToLower()).FirstOrDefault();
+        }
+
         public Registrant GetUserByAccountNo(string accNo)
         {
             return Context.Registrants.Single(c => c.AccountNo == accNo);

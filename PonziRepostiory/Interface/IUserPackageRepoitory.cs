@@ -11,6 +11,8 @@ namespace PonziRepostiory.Interface
     {
         IEnumerable<UserPackage> GetAllUserPackages(int statusId);
         UserPackage GetCurrentUserPackage(int userId, int statusId);
+        UserPackage GetUserLastPackage(int userId);
+        UserPackage GetUserLastPackage(string userId);
         bool ConfirmPackageEligibility(int userId, double newAmount);
     }
 }

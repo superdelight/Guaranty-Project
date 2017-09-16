@@ -18,6 +18,7 @@ namespace PonziRepostiory.Interface
         IEmailValidationRepository EmailValidationContext { get;}
         IPhoneValidationRepository PhoneValidationContext { get; }
         IProxyRepository EmailProxyContext { get; }
+        IUserPackageRepoitory UserPackageContext { get; }
         ISMSAPIRepository SMSProxySetting { get; }
         IValidationStatusRepository ValidationStatusContext { get; }
         int SaveChanges();

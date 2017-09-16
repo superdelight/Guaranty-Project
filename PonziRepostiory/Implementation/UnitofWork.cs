@@ -26,7 +26,8 @@ namespace PonziRepostiory.Implementation
             UserDetails = new UserRepository(_Context);
             UserRoleContext = new RoleStatusRepository(_Context);
             ValidationStatusContext = new ValidationStatusRepository(_Context);
-       
+            UserPackageContext = new UserPackageRepository(_Context);
+            PackageDetails = new PackageRepository(_Context);
          
         }
 
@@ -47,6 +48,7 @@ namespace PonziRepostiory.Implementation
 
         public IUserRepository UserDetails { get; private set; }
 
+        public IUserPackageRepoitory UserPackageContext { get; private set; }
         public IRoleStatusRepoitory UserRoleContext { get; private set; }
 
         public IValidationStatusRepository ValidationStatusContext { get; private set; }

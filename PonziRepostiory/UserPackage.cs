@@ -32,6 +32,6 @@ namespace PonziRepostiory
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionDet> TransactionDets { get; set; }
         public virtual Registrant User { get; set; }
-        public virtual Package Package { get; set; }
+        public virtual MPackage MPackage { get; set; }
     }
 }

@@ -7,23 +7,24 @@ using System.Threading.Tasks;
 
 namespace PonziRepostiory.Implementation
 {
-    public class PackageRepository : Repository<Package>, IPackageRepoitory
+    public class PackageRepository : Repository<MPackage>, IPackageRepoitory
     {
         private NobleDBEntities Context;
         public PackageRepository(NobleDBEntities Context)
           : base(Context)
         {
-
+            this.Context = Context;
         }
 
         public bool ConfirmPackage(string packageDescription)
         {
-            return Context.Packages.Any(c => c.Description.ToLower() == packageDescription.ToLower());
+            return Context.MPackages.Any(c => c.Description.ToLower() == packageDescription.ToLower());
         }
 
-        public Package GetDefaultPackage()
+        public MPackage GetDefaultPackage()
         {
-            return Context.Packages.FirstOrDefault();
+          
+            return Context.MPackages.Where(c=>c.IsActive==true).FirstOrDefault();
         }
     }
 }

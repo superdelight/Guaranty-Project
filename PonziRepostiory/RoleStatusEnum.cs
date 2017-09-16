@@ -16,6 +16,9 @@ namespace PonziRepostiory
         Outbound_User = 1,
         General_Admin = 2,
         Super_Admin = 3,
-        Promoted_Privilege = 4
+        Promoted_Privilege = 4,
+        Phone_Unconfirmed = 5,
+        Success_UnConfirmed = 6,
+        Disabled_User = 7
     }
 }

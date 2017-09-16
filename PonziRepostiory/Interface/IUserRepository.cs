@@ -14,6 +14,7 @@ namespace PonziRepostiory.Interface
         bool ConfirmUserByPhoneNumber(string PhoneNumber);
         bool ConfirmUserByEmail(string EmailAddress);
         Registrant GetUserByEmail(string emailAddress);
+        Registrant GetUser(string loginId);
         Registrant GetUserByAccountNo(string accNo);
         IEnumerable<Registrant> GetAllUsers(int statusId);
         bool IsRole(string emailAddress, int Status);

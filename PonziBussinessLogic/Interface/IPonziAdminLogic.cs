@@ -9,9 +9,9 @@ namespace PonziBussinessLogic.Interface
 {
     public interface IPonziAdminLogic
     {
-        BusinessMessage<bool> CreateNewPackage(Package package);
-        BusinessMessage<Package> GetSinglePackage(int packageId);
-        BusinessMessage<Package> GetDefaultPackage();
+        BusinessMessage<bool> CreateNewPackage(MPackage package);
+        BusinessMessage<MPackage> GetSinglePackage(int packageId);
+        BusinessMessage<MPackage> GetDefaultPackage();
 
         BusinessMessage<Bank> GetSingleBank(int Id);
         BusinessMessage<List<Bank>> GetAllBanks();
@@ -34,13 +34,13 @@ namespace PonziBussinessLogic.Interface
         BusinessMessage<bool> EditRegistrant(Registrant Registrant);
         BusinessMessage<Registrant> GetRegistrantFromAccountNo(string AccNo);
         BusinessMessage<Registrant> GetRegistrantFromEmailAddress(string EmailAddress);
+        BusinessMessage<Registrant> GetRegistrant(string loginId);
         BusinessMessage<List<Registrant>> GetAllRegistrants();
         BusinessMessage<List<Registrant>> GetAllRegistrants(int statusId);
 
         BusinessMessage<string> GetPhoneCode();
         BusinessMessage<string> GetEmailCode();
 
-        
 
 
     }

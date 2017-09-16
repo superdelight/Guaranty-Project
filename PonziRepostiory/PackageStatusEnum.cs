@@ -15,7 +15,9 @@ namespace PonziRepostiory
     {
         Pending = 1,
         Active = 2,
-        Disabled = 3,
-        Closed = 4
+        Error = 3,
+        Closed = 4,
+        Matched_For_PH = 5,
+        Matched_For_GH = 6
     }
 }

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace PonziRepostiory.Interface
 {
     
-    public interface IPackageRepoitory : IRepository<Package>
+    public interface IPackageRepoitory : IRepository<MPackage>
     {
         bool ConfirmPackage(string packageDescription);
-        Package GetDefaultPackage();
+        MPackage GetDefaultPackage();
     }
 }

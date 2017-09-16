@@ -108,6 +108,9 @@
     <Compile Include="MatchingStatus.cs">
       <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
+    <Compile Include="MPackage.cs">
+      <DependentUpon>Nobble.tt</DependentUpon>
+    </Compile>
     <Compile Include="Nobble.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -122,9 +125,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Nobble.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Package.cs">
-      <DependentUpon>Nobble.tt</DependentUpon>
     </Compile>
     <Compile Include="PackageStatus.cs">
       <DependentUpon>Nobble.tt</DependentUpon>

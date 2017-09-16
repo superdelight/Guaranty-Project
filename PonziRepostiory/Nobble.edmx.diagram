@@ -36,11 +36,11 @@
         <AssociationConnector Association="NobleDBModel.FK_Verification_ValidationStatus" />
         <InheritanceConnector EntityType="NobleDBModel.EmailValidation" />
         <InheritanceConnector EntityType="NobleDBModel.PhoneValidation" />
-        <EntityTypeShape EntityType="NobleDBModel.Package" Width="1.5" PointX="0.75" PointY="10" />
-        <AssociationConnector Association="NobleDBModel.FK_UserPackage_Package" />
         <AssociationConnector Association="NobleDBModel.FK_Verification_User" />
         <EntityTypeShape EntityType="NobleDBModel.ProxySetting" Width="1.5" PointX="7.375" PointY="11.75" />
         <EntityTypeShape EntityType="NobleDBModel.SMSSetting" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="NobleDBModel.MPackage" Width="1.5" PointX="0.75" PointY="10" />
+        <AssociationConnector Association="NobleDBModel.FK_UserPackage_MPackage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

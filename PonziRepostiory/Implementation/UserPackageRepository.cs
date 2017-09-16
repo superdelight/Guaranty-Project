@@ -30,5 +30,17 @@ namespace PonziRepostiory.Implementation
         {
             return Context.UserPackages.Where(c => c.PackStatus == statusId && c.UserId==userId).FirstOrDefault();
         }
+
+        public UserPackage GetUserLastPackage(string userId)
+        {
+            return Context.UserPackages.Where(c => c.User.Username.ToLower().
+            Trim() == userId.ToLower().Trim()).OrderByDescending(d => d.Id).FirstOrDefault();
+        }
+
+        public UserPackage GetUserLastPackage(int userId)
+        {
+            return Context.UserPackages.Where(c => c.UserId == userId).
+                OrderByDescending(d => d.Id).FirstOrDefault();
+        }
     }
 }
