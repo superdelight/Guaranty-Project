@@ -111,10 +111,30 @@ namespace PonziBussinessLogic.Implementation
                                 }
                                 else
                                 {
-                                    string msg = string.Format("<h1>Hello {0}</h1><p>You initiated a transaction on {1}, this transaction is still active and our System has placed you on Queue.<br/>You will be matched to <b>Provide Help</b>  <b><i>Today<i></b>.</p> <p>Please prepare yourself for Payment of =N={2:N2}.</p>", registant.Surname, userPackage.DateStarted.Value.ToLongDateString(), userPackage.Amount);
-                                    response.Message = msg;
-                                    response.ResponseCode = ResponseCode.Active;
-                                    response.Result = msg;
+                                    Random rand = new Random();
+                                    int roundFigure = rand.Next(1, 3);
+                                    if (roundFigure == 1)
+                                    {
+                                        string msg = string.Format("<h1>Congratulations {0}</h1><p> Your PH  Matching has been successfully completed by the system. Please take note of the following details.<br/>You will be paying the sum of {1} <br/>RECIPIENT NAME ==> AKINYODE IDOWU SAMUEL<br/> <br/> BANK NAME ==> UBA<br/>ACCOUNT NUMBER: 011134444<br/>PHONE NUMBER ==> 09015685555.", registant.Surname, userPackage.Amount);
+                                        response.Message = msg;
+                                        response.ResponseCode = ResponseCode.Matched_For_PH;
+                                        response.Result = msg;
+                                    }
+                                    else if (roundFigure == 2)
+                                    {
+                                        string msg = string.Format("<h1>Congratulations {0}</h1><p> Your PH  Matching has been successfully completed by the system. Please take note of the following details.<br/>You will be paying the sum of {1} <br/>RECIPIENT NAME ==> BANKOLE RICHARD <br/> <br/> BANK NAME ==> GTB<br/>ACCOUNT NUMBER: 0122444444<br/>PHONE NUMBER ==> 08015685555.", registant.Surname, userPackage.Amount);
+                                        response.Message = msg;
+                                        response.ResponseCode = ResponseCode.Matched_For_PH;
+                                        response.Result = msg;
+                                    }
+
+                                    else
+                                    {
+                                        string msg = string.Format("<h1>Congratulations {0}</h1><p> Your PH  Matching has been successfully completed by the system. Please take note of the following details.<br/>You will be paying the sum of {1} <br/>RECIPIENT NAME ==> BOLA AHMED TINUBU<br/> <br/> BANK NAME ==> ECOBANK<br/>ACCOUNT NUMBER: 0111344477<br/>PHONE NUMBER ==> 07015685555.", registant.Surname, userPackage.Amount);
+                                        response.Message = msg;
+                                        response.ResponseCode = ResponseCode.Matched_For_PH;
+                                        response.Result = msg;
+                                    }
                                 }
                             }
                             else
